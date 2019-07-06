@@ -1,5 +1,8 @@
 import sys
+import numpy as np
 
-print('paolo')
+test = np.random.randint(1)
+
+print(test)
 
 sys.stdout.flush()

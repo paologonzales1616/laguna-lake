@@ -1,7 +1,11 @@
 import React from "react";
 
 const Index = props => {
-  return <div>{props.python}</div>;
+  return (
+    <div>
+      <h1>{props.python}</h1>
+    </div>
+  );
 };
 
 Index.getInitialProps = ({ query: { id } }) => {

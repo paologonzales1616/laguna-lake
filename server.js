@@ -28,7 +28,7 @@ app.prepare().then(() => {
   });
 
   server.get("/simulation", (req, res) => {
-    return app.render(req, res, "/timeline", req.query);
+    return app.render(req, res, "/simulation", req.query);
   });
 
   server.get("/timeline", (req, res) => {

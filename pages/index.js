@@ -1,15 +1,12 @@
-import React from "react";
+import Layout from "../components/Layout";
 
-const Index = props => {
+const Index = () => {
   return (
-    <div>
-      <h2>{props.python}</h2>
-    </div>
+    <Layout>
+      index
+    </Layout>
   );
 };
 
-Index.getInitialProps = ({ query: { id } }) => {
-  return { python: id };
-};
 
 export default Index;

@@ -7,6 +7,12 @@ const Layout = props => {
       <Head />
       <Navigation />
       {props.children}
+      <style global jsx>{`
+        body,
+        html {
+          height: 100%;
+        }
+      `}</style>
     </>
   );
 };

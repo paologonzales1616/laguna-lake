@@ -49,6 +49,19 @@ app.prepare().then(() => {
     );
   });
 
+  server.post("/api/rivers", async (req, res) => {
+    await PythonShell.run(
+      "main.py",
+      {
+        args: ["rivers"]
+      },
+      (err, results) => {
+        if (err) throw err;
+        res.json(JSON.parse(results));
+      }
+    );
+  });
+
   server.get("/forecast", (req, res) => {
     return app.render(req, res, "/forecast", req.query);
   });

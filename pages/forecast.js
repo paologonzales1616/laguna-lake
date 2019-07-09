@@ -11,7 +11,7 @@ import {
   PopoverHeader,
   PopoverBody
 } from "reactstrap";
-import { MONTH_NAMES, FEATURES } from "../utils/constant";
+import { MONTH_NAMES } from "../utils/constant";
 import { FEATURE_TO_TEXT } from "../utils/actions";
 
 const Map = dynamic(() => import("../components/Map"), {

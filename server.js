@@ -23,21 +23,38 @@ app.prepare().then(() => {
     res.json({ message: "Register API Route" });
   });
 
-  server.post("/api", async (req, res) => {
-    await PythonShell.run("main.py", {
-      args: ['timeline','wqi']
-    }, (err, results) => {
-      if (err) throw err;
-    res.json(JSON.parse(results));
-    });
+  server.post("/api/actual", async (req, res) => {
+    await PythonShell.run(
+      "main.py",
+      {
+        args: ["actual", req.body.feature, req.body.station]
+      },
+      (err, results) => {
+        if (err) throw err;
+        res.json(JSON.parse(results));
+      }
+    );
+  });
+
+  server.post("/api/timeline", async (req, res) => {
+    await PythonShell.run(
+      "main.py",
+      {
+        args: ["timeline", req.body.feature]
+      },
+      (err, results) => {
+        if (err) throw err;
+        res.json(JSON.parse(results));
+      }
+    );
   });
 
   server.get("/forecast", (req, res) => {
     return app.render(req, res, "/forecast", req.query);
   });
 
-  server.get("/simulation", (req, res) => {
-    return app.render(req, res, "/simulation", req.query);
+  server.get("/simulation/:feature", (req, res) => {
+    return app.render(req, res, "/simulation", { feature: req.params.feature });
   });
 
   server.get("/timeline", (req, res) => {

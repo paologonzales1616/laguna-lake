@@ -116,8 +116,7 @@ const Navigation = () => {
             <DropdownMenu right>
               <Link
                 href={{
-                  pathname: "/simulation",
-                  query: { feature: "pH" }
+                  pathname: "/simulation/pH",
                 }}
               >
                 <DropdownItem>
@@ -126,8 +125,7 @@ const Navigation = () => {
               </Link>
               <Link
                 href={{
-                  pathname: "/simulation",
-                  query: { feature: "ammonia" }
+                  pathname: "/simulation/ammonia",
                 }}
               >
                 <DropdownItem>
@@ -136,8 +134,7 @@ const Navigation = () => {
               </Link>
               <Link
                 href={{
-                  pathname: "/simulation",
-                  query: { feature: "nitrate" }
+                  pathname: "/simulation/nitrate",
                 }}
               >
                 <DropdownItem>
@@ -146,8 +143,7 @@ const Navigation = () => {
               </Link>
               <Link
                 href={{
-                  pathname: "/simulation",
-                  query: { feature: "inorganic_phosphate" }
+                  pathname: "/simulation/inorganic_phosphate",
                 }}
               >
                 <DropdownItem>
@@ -156,8 +152,7 @@ const Navigation = () => {
               </Link>
               <Link
                 href={{
-                  pathname: "/simulation",
-                  query: { feature: "BOD" }
+                  pathname: "/simulation/BOD",
                 }}
               >
                 <DropdownItem>
@@ -166,8 +161,7 @@ const Navigation = () => {
               </Link>
               <Link
                 href={{
-                  pathname: "/simulation",
-                  query: { feature: "dissolved_oxygen" }
+                  pathname: "/simulation/dissolved_oxygen",
                 }}
               >
                 <DropdownItem>
@@ -176,8 +170,7 @@ const Navigation = () => {
               </Link>
               <Link
                 href={{
-                  pathname: "/simulation",
-                  query: { feature: "fecal_coliforms" }
+                  pathname: "/simulation/fecal_coliforms",
                 }}
               >
                 <DropdownItem>
@@ -186,8 +179,7 @@ const Navigation = () => {
               </Link>
               <Link
                 href={{
-                  pathname: "/simulation",
-                  query: { feature: "wqi" }
+                  pathname: "/simulation/wqi",
                 }}
               >
                 <DropdownItem>

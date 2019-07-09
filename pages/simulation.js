@@ -1,18 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Layout from "../components/Layout";
 import { Line } from "react-chartjs-2";
-import {
-  Row,
-  Col,
-  Container,
-  Nav,
-  NavItem,
-  NavLink
-} from "reactstrap";
+import { Row, Col, Container, Nav, NavItem, NavLink } from "reactstrap";
 import { MONTH_NAMES, STATIONS } from "../utils/constant";
 import { FEATURE_TO_TEXT } from "../utils/actions";
-
-
+import fetch from 'isomorphic-unfetch'
 const Simulation = props => {
   const [station, setStation] = useState(1);
   const [actual, setActual] = useState([]);
@@ -66,6 +58,34 @@ const Simulation = props => {
     ]
   };
 
+  const simulate = async () => {
+    const headers = {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    };
+    const options = {
+      headers: headers,
+      method: "POST",
+      body: JSON.stringify({
+        feature: props.feature,
+        station: parseInt(station)
+      })
+    };
+    try {
+      const response = await fetch(`${window.location.protocol}//${document.location.hostname}/api/actual`, options);
+      const data = await response.json();
+      setActual(data.actual);
+      setForecast(data.forecast);
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    simulate();
+  }, []);
+
   return (
     <Layout>
       <Container className="p-5">
@@ -80,7 +100,10 @@ const Simulation = props => {
               {STATIONS.map((data, index) => (
                 <NavItem key={index}>
                   <NavLink
-                    onClick={() => setStation(data)}
+                    onClick={() => {
+                      setStation(data);
+                      simulate();
+                    }}
                     href="#"
                     active={data === station}
                   >{`Station ${data}`}</NavLink>
@@ -99,8 +122,7 @@ const Simulation = props => {
   );
 };
 
-Simulation.getInitialProps = ({ query: { feature } }) => {
-  console.log(feature);
+Simulation.getInitialProps = async ({ query: { feature } }) => {
   return { feature: feature };
 };
 

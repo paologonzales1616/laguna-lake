@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Layout from "../components/Layout";
 import { Col, Row, Container, Nav, NavItem, NavLink } from "reactstrap";
 import { Line } from "react-chartjs-2";
@@ -35,6 +35,36 @@ const Timeline = () => {
     ]
   };
 
+  const simulate = async val => {
+    const headers = {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    };
+    const options = {
+      headers: headers,
+      method: "POST",
+      body: JSON.stringify({
+        feature: val
+      })
+    };
+    try {
+      const response = await fetch(
+        `${window.location.protocol}//${document.location.hostname}/api/timeline`,
+        options
+      );
+      const data = await response.json();
+      await setLabel(val);
+      setTimeline(data);
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    simulate(label);
+  }, []);
+
   return (
     <Layout>
       <Container className="p-5">
@@ -50,7 +80,7 @@ const Timeline = () => {
                 <NavItem key={index}>
                   <NavLink
                     href="#"
-                    onClick={() => setLabel(data)}
+                    onClick={() => simulate(data)}
                     active={data === label}
                   >
                     {FEATURE_TO_TEXT(data)}
@@ -69,10 +99,5 @@ const Timeline = () => {
     </Layout>
   );
 };
-
-// Timeline.getInitialProps = ({ query: { feature } }) => {
-//   console.log(feature);
-//   return { feature: feature };
-// };
 
 export default Timeline;

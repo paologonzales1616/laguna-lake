@@ -1,8 +1,51 @@
 import sys
-import numpy as np
+import model
+import colors
+import json
 
-test = np.random.randint(1)
+datasets, models = model.initialize_all()
 
-print(test)
+sys.stdout.flush()
+
+
+def forecast_per_month(feature, month):
+
+    # Run model and get output
+    data = model.forecast_all_stations_by_month(
+        datasets[feature], models[feature], month)
+
+    print(json.dumps(data))
+
+
+def actual_per_station(feature, station):
+
+    # Get JSON body
+    prediction = model.forecast_all_months_by_station(
+        datasets[feature], models[feature], station)
+
+    actual = model.actual_all_months_by_station(
+        datasets[feature], station)
+    print(json.dumps({"actual": actual, "forecast": prediction}))
+
+
+def legend_of_feature(feature):
+    print(json.dumps(colors.legend(feature)))
+
+
+def timeline_of_feature(feature):
+    print(json.dumps(model.actual_timeline_by_feature(feature)))
+
+
+if sys.argv[1] == 'forecast':
+    forecast_per_month(sys.argv[2], int(sys.argv[3]))
+
+if sys.argv[1] == 'actual':
+    actual_per_station(sys.argv[2], int(sys.argv[3]))
+
+if sys.argv[1] == 'legend':
+    legend_of_feature(sys.argv[2])
+
+if sys.argv[1] == 'timeline':
+    timeline_of_feature(sys.argv[2])
 
 sys.stdout.flush()

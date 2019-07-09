@@ -1,7 +1,7 @@
 import Layout from "../components/Layout";
 import dynamic from "next/dynamic";
 import Slider from "react-input-slider";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Container,
   Row,
@@ -11,24 +11,55 @@ import {
   PopoverHeader,
   PopoverBody
 } from "reactstrap";
-import { MONTH_NAMES } from "../utils/constant";
+import { MONTH_NAMES, FEATURES } from "../utils/constant";
+import { FEATURE_TO_TEXT } from "../utils/actions";
 
 const Map = dynamic(() => import("../components/Map"), {
   ssr: false
 });
 
+const headers = {
+  Accept: "application/json",
+  "Content-Type": "application/json"
+};
+
 const Forecast = props => {
   const [month, setMonth] = useState({ x: 1 });
   const [legend, setLegend] = useState(false);
+
+  const forecasting = async () => {
+    const options = {
+      headers: headers,
+      method: "POST",
+      body: JSON.stringify({
+        feature: props.feature,
+        month: parseInt(month.x)
+      })
+    };
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/forecast`,
+        options
+      );
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    forecasting();
+  }, []);
+
   return (
     <Layout>
       <Container fluid>
         <Row style={{ height: "100%" }}>
           <Map />
-
           <div className="control-panel">
             <h3>FORECASTING</h3>
-            <h5>{props.feature}</h5>
+            <h6>{FEATURE_TO_TEXT(props.feature)}</h6>
             <hr />
             <label className="pr-2">{MONTH_NAMES[month.x - 1]}</label>
             <Spinner size="sm" color="primary" />
@@ -40,6 +71,11 @@ const Forecast = props => {
               xmax={12}
               x={month.x}
               onChange={({ x }) => setMonth({ x })}
+              styles={{
+                track: {
+                  width: "100%"
+                }
+              }}
             />
           </div>
           <div className="legend-panel">
@@ -66,7 +102,7 @@ const Forecast = props => {
           letter-spacing: 5px;
           text-align: center;
         }
-        h5 {
+        h6 {
           letter-spacing: 5px;
           text-align: center;
         }

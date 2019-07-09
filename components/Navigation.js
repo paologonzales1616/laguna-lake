@@ -100,7 +100,7 @@ const Navigation = () => {
               <Link
                 href={{
                   pathname: "/forecast",
-                  query: { feature: "fecal_coliforms" }
+                  query: { feature: "wqi" }
                 }}
               >
                 <DropdownItem>
@@ -199,6 +199,11 @@ const Navigation = () => {
           <NavItem>
             <Link href="/timeline">
               <a className="nav-link">Timeline</a>
+            </Link>
+          </NavItem>
+          <NavItem>
+            <Link href="/rivers">
+              <a className="nav-link">Rivers</a>
             </Link>
           </NavItem>
           <NavItem>

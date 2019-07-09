@@ -3,7 +3,7 @@ import Layout from "../components/Layout";
 import { Col, Row, Container, Nav, NavItem, NavLink } from "reactstrap";
 import { Line } from "react-chartjs-2";
 import { FEATURES } from "../utils/constant";
-import { FEATURE_SELECT } from "../utils/actions";
+import { FEATURE_TO_TEXT } from "../utils/actions";
 
 const Timeline = () => {
   const [timeline, setTimeline] = useState([]);
@@ -13,7 +13,7 @@ const Timeline = () => {
     labels: timeline.map(x => x.date),
     datasets: [
       {
-        label: FEATURE_SELECT(label),
+        label: FEATURE_TO_TEXT(label),
         fill: false,
         lineTension: 0,
         backgroundColor: "rgba(153, 255, 153, 1)",
@@ -47,15 +47,15 @@ const Timeline = () => {
           <Col className="pb-3">
             <Nav justified fill pills>
               {FEATURES.map((data, index) => (
-                  <NavItem key={index}>
-                    <NavLink
-                      href="#"
-                      onClick={() => setLabel(data)}
-                      active={data === label}
-                    >
-                      {FEATURE_SELECT(data)}
-                    </NavLink>
-                  </NavItem>
+                <NavItem key={index}>
+                  <NavLink
+                    href="#"
+                    onClick={() => setLabel(data)}
+                    active={data === label}
+                  >
+                    {FEATURE_TO_TEXT(data)}
+                  </NavLink>
+                </NavItem>
               ))}
             </Nav>
           </Col>

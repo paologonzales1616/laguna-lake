@@ -10,7 +10,7 @@ import {
   NavLink
 } from "reactstrap";
 import { MONTH_NAMES, STATIONS } from "../utils/constant";
-import { FEATURE_SELECT } from "../utils/actions";
+import { FEATURE_TO_TEXT } from "../utils/actions";
 
 
 const Simulation = props => {
@@ -71,7 +71,7 @@ const Simulation = props => {
       <Container className="p-5">
         <Row>
           <Col className="text-center pb-3">
-            <h2>{FEATURE_SELECT(props.feature)}</h2>
+            <h2>{FEATURE_TO_TEXT(props.feature)}</h2>
           </Col>
         </Row>
         <Row>

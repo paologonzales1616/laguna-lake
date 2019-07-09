@@ -2,7 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const next = require("next");
 const bodyParser = require("body-parser");
-// const { PythonShell } = require("python-shell");
+const { PythonShell } = require("python-shell");
 
 const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== "production";
@@ -23,6 +23,15 @@ app.prepare().then(() => {
     res.json({ message: "Register API Route" });
   });
 
+  server.post("/api", async (req, res) => {
+    await PythonShell.run("main.py", {
+      args: ['timeline','wqi']
+    }, (err, results) => {
+      if (err) throw err;
+    res.json(JSON.parse(results));
+    });
+  });
+
   server.get("/forecast", (req, res) => {
     return app.render(req, res, "/forecast", req.query);
   });
@@ -33,6 +42,10 @@ app.prepare().then(() => {
 
   server.get("/timeline", (req, res) => {
     return app.render(req, res, "/timeline", req.query);
+  });
+
+  server.get("/rivers", (req, res) => {
+    return app.render(req, res, "/rivers", req.query);
   });
 
   server.get("/about", (req, res) => {
@@ -52,12 +65,7 @@ app.prepare().then(() => {
   });
 
   server.get(["/home", "/"], (req, res) => {
-    // await PythonShell.run("main.py", {}, (err, results) => {
-    //   if (err) throw err;
-    //   // results is an array consisting of messages collected during execution
-    //   console.log("results: %j", results);
     return app.render(req, res, "/index", req.query);
-    // });
   });
 
   server.get("*", (req, res) => {

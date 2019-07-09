@@ -1,4 +1,4 @@
-export const FEATURE_SELECT = value => {
+export const FEATURE_TO_TEXT = value => {
   switch (value) {
     case "pH":
       return "pH";

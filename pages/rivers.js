@@ -1,7 +1,7 @@
 import Layout from "../components/Layout";
 import fetch from "isomorphic-unfetch";
 import RiversChart from "../components/RiversChart";
-import { Container, Row, Co } from "reactstrap";
+import { Container, Row, Col } from "reactstrap";
 const Rivers = props => {
   return (
     <Layout>

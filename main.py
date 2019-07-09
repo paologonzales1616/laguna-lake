@@ -42,19 +42,20 @@ def data_of_river():
                       "names": rivers.get_all_river_names()}))
 
 
-if sys.argv[1] == 'forecast':
-    forecast_per_month(sys.argv[2], int(sys.argv[3]))
+if __name__ == "__main__":
+    if sys.argv[1] == 'forecast':
+        forecast_per_month(sys.argv[2], int(sys.argv[3]))
 
-if sys.argv[1] == 'actual':
-    actual_per_station(sys.argv[2], int(sys.argv[3]))
+    elif sys.argv[1] == 'actual':
+        actual_per_station(sys.argv[2], int(sys.argv[3]))
 
-if sys.argv[1] == 'legend':
-    legend_of_feature(sys.argv[2])
+    elif sys.argv[1] == 'legend':
+        legend_of_feature(sys.argv[2])
 
-if sys.argv[1] == 'timeline':
-    timeline_of_feature(sys.argv[2])
+    elif sys.argv[1] == 'timeline':
+        timeline_of_feature(sys.argv[2])
 
-if sys.argv[1] == 'rivers':
-    data_of_river()
+    elif sys.argv[1] == 'rivers':
+        data_of_river()
 
-sys.stdout.flush()
+    sys.stdout.flush()

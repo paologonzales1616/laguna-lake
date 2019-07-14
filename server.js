@@ -23,6 +23,19 @@ app.prepare().then(() => {
     res.json({ message: "Register API Route" });
   });
 
+  server.post("/api/forecast", async (req, res) => {
+    await PythonShell.run(
+      "main.py",
+      {
+        args: ["forecast", req.body.feature, req.body.month]
+      },
+      (err, results) => {
+        if (err) throw err;
+        res.json(JSON.parse(results));
+      }
+    );
+  });
+
   server.post("/api/actual", async (req, res) => {
     await PythonShell.run(
       "main.py",
@@ -49,6 +62,20 @@ app.prepare().then(() => {
     );
   });
 
+  server.post("/api/legend", async (req, res) => {
+    await PythonShell.run(
+      "main.py",
+      {
+        args: ["legend", req.body.feature]
+      },
+      (err, results) => {
+        if (err) throw err;
+        res.json(JSON.parse(results));
+      }
+    );
+  });
+
+
   server.post("/api/rivers", async (req, res) => {
     await PythonShell.run(
       "main.py",
@@ -62,8 +89,8 @@ app.prepare().then(() => {
     );
   });
 
-  server.get("/forecast", (req, res) => {
-    return app.render(req, res, "/forecast", req.query);
+  server.get("/forecast/:feature", (req, res) => {
+    return app.render(req, res, "/forecast", { feature: req.params.feature });
   });
 
   server.get("/simulation/:feature", (req, res) => {

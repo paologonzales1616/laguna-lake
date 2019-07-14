@@ -1,7 +1,12 @@
 import Layout from "../components/Layout";
 import fetch from "isomorphic-unfetch";
-import RiversChart from "../components/RiversChart";
+import dynamic from "next/dynamic";
 import { Container, Row, Col } from "reactstrap";
+
+const RiversChart = dynamic(() => import("../components/RiversChart"), {
+  ssr: false
+});
+
 const Rivers = props => {
   return (
     <Layout>
@@ -35,7 +40,8 @@ Rivers.getInitialProps = async () => {
   };
 
   const response = await fetch(
-    `${window.location.protocol}//${document.location.hostname}/api/rivers`,
+    'http://localhost:3000/api/rivers',
+    // `${document.location.protocol}//${document.location.hostname}/api/rivers`,
     options
   );
   const data = await response.json();

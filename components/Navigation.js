@@ -32,77 +32,47 @@ const Navigation = () => {
               Forecast
             </DropdownToggle>
             <DropdownMenu right>
-              <Link href={{ pathname: "/forecast", query: { feature: "pH" } }}>
+              <Link href="/forecast/pH">
                 <DropdownItem>
                   <a className="nav-link">pH</a>
                 </DropdownItem>
               </Link>
-              <Link
-                href={{
-                  pathname: "/forecast",
-                  query: { feature: "ammonia" }
-                }}
-              >
+              <Link href="/forecast/ammonia">
                 <DropdownItem>
                   <a className="nav-link">Ammonia</a>
                 </DropdownItem>
               </Link>
 
-              <Link
-                href={{
-                  pathname: "/forecast",
-                  query: { feature: "nitrate" }
-                }}
-              >
+              <Link href="/forecast/nitrate">
                 <DropdownItem>
                   <a className="nav-link">Nitrate</a>
                 </DropdownItem>
               </Link>
-              <Link
-                href={{
-                  pathname: "/forecast",
-                  query: { feature: "inorganic_phosphate" }
-                }}
-              >
+              <Link href="/forecast/inorganic_phosphate">
                 <DropdownItem>
                   <a className="nav-link">Inorganic Phosphate</a>
                 </DropdownItem>
               </Link>
 
-              <Link href={{ pathname: "/forecast", query: { feature: "BOD" } }}>
+              <Link href="/forecast/BOD">
                 <DropdownItem>
                   <a className="nav-link">BOD Level</a>
                 </DropdownItem>
               </Link>
 
-              <Link
-                href={{
-                  pathname: "/forecast",
-                  query: { feature: "dissolved_oxygen" }
-                }}
-              >
+              <Link href="/forecast/dissolved_oxygen">
                 <DropdownItem>
                   <a className="nav-link">Dissolved Oxygen (DO)</a>
                 </DropdownItem>
               </Link>
 
-              <Link
-                href={{
-                  pathname: "/forecast",
-                  query: { feature: "fecal_coliforms" }
-                }}
-              >
+              <Link href="/forecast/fecal_coliforms">
                 <DropdownItem>
                   <a className="nav-link">Fecal Coliforms</a>
                 </DropdownItem>
               </Link>
 
-              <Link
-                href={{
-                  pathname: "/forecast",
-                  query: { feature: "wqi" }
-                }}
-              >
+              <Link href="/forecast/wqi">
                 <DropdownItem>
                   <a className="nav-link">Water Quality Index</a>
                 </DropdownItem>
@@ -114,74 +84,42 @@ const Navigation = () => {
               Simulation
             </DropdownToggle>
             <DropdownMenu right>
-              <Link
-                href={{
-                  pathname: "/simulation/pH",
-                }}
-              >
+              <Link href="/simulation/pH">
                 <DropdownItem>
                   <a className="nav-link">pH</a>
                 </DropdownItem>
               </Link>
-              <Link
-                href={{
-                  pathname: "/simulation/ammonia",
-                }}
-              >
+              <Link href="/simulation/ammonia">
                 <DropdownItem>
                   <a className="nav-link">Ammonia</a>
                 </DropdownItem>
               </Link>
-              <Link
-                href={{
-                  pathname: "/simulation/nitrate",
-                }}
-              >
+              <Link href="/simulation/nitrate">
                 <DropdownItem>
                   <a className="nav-link">Nitrate</a>
                 </DropdownItem>
               </Link>
-              <Link
-                href={{
-                  pathname: "/simulation/inorganic_phosphate",
-                }}
-              >
+              <Link href="/simulation/inorganic_phosphate">
                 <DropdownItem>
                   <a className="nav-link">Inorganic Phosphate</a>
                 </DropdownItem>
               </Link>
-              <Link
-                href={{
-                  pathname: "/simulation/BOD",
-                }}
-              >
+              <Link href="/simulation/BOD">
                 <DropdownItem>
                   <a className="nav-link">BOD Level</a>
                 </DropdownItem>
               </Link>
-              <Link
-                href={{
-                  pathname: "/simulation/dissolved_oxygen",
-                }}
-              >
+              <Link href="/simulation/dissolved_oxygen">
                 <DropdownItem>
                   <a className="nav-link">Dissolved Oxygen (DO)</a>
                 </DropdownItem>
               </Link>
-              <Link
-                href={{
-                  pathname: "/simulation/fecal_coliforms",
-                }}
-              >
+              <Link href="/simulation/fecal_coliforms">
                 <DropdownItem>
                   <a className="nav-link">Fecal Coliforms</a>
                 </DropdownItem>
               </Link>
-              <Link
-                href={{
-                  pathname: "/simulation/wqi",
-                }}
-              >
+              <Link href="/simulation/wqi">
                 <DropdownItem>
                   <a className="nav-link">Water Quality Index</a>
                 </DropdownItem>

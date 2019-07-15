@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Layout from "../components/Layout";
 import { Col, Row, Container, Nav, NavItem, NavLink } from "reactstrap";
-import { Line } from "react-chartjs-2";
+import dynamic from "next/dynamic";
 import { FEATURES } from "../utils/constant";
 import { FEATURE_TO_TEXT } from "../utils/actions";
+
+const TimelineChart = dynamic(() => import("../components/TimelineChart"), {
+  ssr: false
+});
+
 
 const Timeline = () => {
   const [timeline, setTimeline] = useState([]);
@@ -49,6 +54,7 @@ const Timeline = () => {
     };
     try {
       const response = await fetch(
+        // 'http://localhost:3000/api/timeline',
         `${window.location.protocol}//${document.location.hostname}/api/timeline`,
         options
       );
@@ -92,7 +98,7 @@ const Timeline = () => {
         </Row>
         <Row>
           <Col>
-            <Line data={data} />
+            <TimelineChart data={data} />
           </Col>
         </Row>
       </Container>

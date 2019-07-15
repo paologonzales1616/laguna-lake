@@ -8,8 +8,8 @@ import {
   Button,
   Spinner,
   Popover,
-  PopoverHeader,
-  PopoverBody
+  PopoverBody,
+  Table
 } from "reactstrap";
 import { MONTH_NAMES } from "../utils/constant";
 import { FEATURE_TO_TEXT } from "../utils/actions";
@@ -25,7 +25,30 @@ const headers = {
 
 const Forecast = props => {
   const [month, setMonth] = useState({ x: 1 });
+  const [colors, setColors] = useState([]);
   const [legend, setLegend] = useState(false);
+
+  const fetchColors = async () => {
+    const optionsLegend = {
+      headers: headers,
+      method: "POST",
+      body: JSON.stringify({
+        feature: props.feature
+      })
+    };
+
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/legend`,
+        optionsLegend
+      );
+      const data = await response.json();
+      setColors(data);
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const forecasting = async () => {
     const options = {
@@ -49,8 +72,23 @@ const Forecast = props => {
   };
 
   useEffect(() => {
+    fetchColors();
     forecasting();
   }, []);
+
+  const LegendTable = colors => (
+    <Table borderless style={{ fontSize: "12px", backgroundColor: "white" }}>
+      <tbody>
+        {colors.map((data, index) => (
+          <tr key={index}>
+            <td style={{ backgroundColor: data.color, padding: 8 }}>
+              <b>{`${data.min} - ${data.max}`}</b>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </Table>
+  );
 
   return (
     <Layout>
@@ -88,10 +126,8 @@ const Forecast = props => {
               target="legend-popover"
               toggle={() => setLegend(!legend)}
             >
-              <PopoverHeader>Popover Title</PopoverHeader>
               <PopoverBody>
-                Sed posuere consectetur est at lobortis. Aenean eu leo quam.
-                Pellentesque ornare sem lacinia quam venenatis vestibulum.
+                <LegendTable {...colors} />
               </PopoverBody>
             </Popover>
           </div>

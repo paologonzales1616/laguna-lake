@@ -1,60 +1,98 @@
 import Layout from "../components/Layout";
 import dynamic from "next/dynamic";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import moment from "moment";
 import {
   Container,
   Row,
   Button,
   Spinner,
   Popover,
-  PopoverHeader,
-  PopoverBody
+  PopoverBody,
+  Input,
+  Col
 } from "reactstrap";
+import { FEATURES } from "../utils/constant";
+import { FEATURE_TO_TEXT } from "../utils/actions";
 
 const Map = dynamic(() => import("../components/Map"), {
   ssr: false
 });
 
+const Legend = dynamic(() => import("../components/Legend"), {
+  ssr: false
+});
+
 const Index = () => {
   const [legend, setLegend] = useState(false);
+  const [feature, setFeature] = useState("wqi");
+  const date = moment().format("MMMM D, YYYY (dddd)");
+
   return (
     <Layout>
-      <Container fluid>
-        <Row style={{ height: "100%" }}>
-          <Map />
-          <div className="control-panel">
-            <h3>FORECASTING</h3>
-            <h6>WATER QUALITY INDEX</h6>
-            <hr />
-            <label className="pr-2"> </label>
-            <Spinner size="sm" color="primary" />
-            <br />
-          </div>
-          <div className="legend-panel">
-            <Button id="legend-popover" color="info">
-              Legend
-            </Button>
-            <Popover
-              placement="bottom"
-              isOpen={legend}
-              target="legend-popover"
-              toggle={() => setLegend(!legend)}
-            >
-              <PopoverHeader>Popover Title</PopoverHeader>
-              <PopoverBody>
-                Sed posuere consectetur est at lobortis. Aenean eu leo quam.
-                Pellentesque ornare sem lacinia quam venenatis vestibulum.
-              </PopoverBody>
-            </Popover>
-          </div>
-        </Row>
-      </Container>
+      <div className="map-grid">
+        <Map />
+        <div className="control-panel">
+          <h3>FORECASTING</h3>
+          <h6>{FEATURE_TO_TEXT(feature)}</h6>
+          <p>{date}</p>
+          <hr />
+          <Row className="pb-2">
+            <Col md={2}>
+              <Spinner
+                style={{ width: "2rem", height: "2rem" }}
+                color="primary"
+              />
+            </Col>
+            <Col md={10}>
+              <Input
+                type="select"
+                onChange={e => {
+                  setFeature(e.target.value);
+                  setLegend(false);
+                }}
+                bsSize="sm"
+                defaultValue={"wqi"}
+              >
+                {FEATURES.map((data, index) => (
+                  <option value={data} key={index}>
+                    {FEATURE_TO_TEXT(data)}
+                  </option>
+                ))}
+              </Input>
+            </Col>
+          </Row>
+        </div>
+        <div className="legend-panel">
+          <Button id="legend-popover" color="info">
+            Legend
+          </Button>
+          <Popover
+            placement="bottom"
+            isOpen={legend}
+            target="legend-popover"
+            toggle={() => setLegend(!legend)}
+          >
+            <PopoverBody>
+              <Legend legend={feature} />
+            </PopoverBody>
+          </Popover>
+        </div>
+      </div>
       <style jsx>{`
+        .map-grid {
+          height: 100%;
+          display: grid;
+        }
         h3 {
           letter-spacing: 5px;
           text-align: center;
         }
         h6 {
+          letter-spacing: 5px;
+          text-align: center;
+        }
+        p {
           letter-spacing: 5px;
           text-align: center;
         }

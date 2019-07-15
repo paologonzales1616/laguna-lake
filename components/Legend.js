@@ -19,7 +19,8 @@ const Legend = props => {
 
     try {
       const response = await fetch(
-        `http://localhost:3000/api/legend`,
+        `${window.location.protocol}//${document.location.hostname}/api/legend`,
+        // `http://localhost:3000/api/legend`,
         optionsLegend
       );
       const data = await response.json();

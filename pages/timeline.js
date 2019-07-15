@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Layout from "../components/Layout";
-import { Col, Row, Container, Nav, NavItem, NavLink } from "reactstrap";
+import {
+  Col,
+  Row,
+  Container,
+  Nav,
+  NavItem,
+  NavLink,
+  Spinner
+} from "reactstrap";
 import dynamic from "next/dynamic";
 import { FEATURES } from "../utils/constant";
 import { FEATURE_TO_TEXT } from "../utils/actions";
@@ -12,6 +20,7 @@ const TimelineChart = dynamic(() => import("../components/TimelineChart"), {
 const Timeline = () => {
   const [timeline, setTimeline] = useState([]);
   const [label, setLabel] = useState("pH");
+  const [isLoading, setIsLoading] = useState(false);
 
   const simulate = async val => {
     const headers = {
@@ -26,6 +35,9 @@ const Timeline = () => {
       })
     };
     try {
+      await setLabel(val);
+      await setTimeline([]);
+      await setIsLoading(true);
       const response = await fetch(
         process.env.NODE_ENV === "production"
           ? `${window.location.protocol}//${
@@ -36,8 +48,8 @@ const Timeline = () => {
         options
       );
       const data = await response.json();
-      await setLabel(val);
-      setTimeline(data);
+      await setTimeline(data);
+      await setIsLoading(false);
     } catch (error) {
       console.error(error);
     }
@@ -65,7 +77,11 @@ const Timeline = () => {
                     onClick={() => simulate(data)}
                     active={data === label}
                   >
-                    {FEATURE_TO_TEXT(data)}
+                    {isLoading && data === label ? (
+                      <Spinner color="light" />
+                    ) : (
+                      FEATURE_TO_TEXT(data)
+                    )}
                   </NavLink>
                 </NavItem>
               ))}
@@ -74,7 +90,7 @@ const Timeline = () => {
         </Row>
         <Row>
           <Col>
-            <TimelineChart label={label} data={timeline} />
+            <TimelineChart label={FEATURE_TO_TEXT(label)} data={timeline} />
           </Col>
         </Row>
       </Container>

@@ -6,20 +6,18 @@ const Mapbox = ReactMapboxGl({
     "pk.eyJ1IjoicGFkbzY5IiwiYSI6ImNqc2xiMHMxcjJqZmQ0M3M3bDhpM21tbW8ifQ.ucrihizFRCj9M70JR7hmDg"
 });
 
-const Map = () => {
+const Map = props => {
   return (
     <Mapbox
-      center={[-0.481747846041145, 51.3233379650232]}
-      style="mapbox://styles/mapbox/streets-v9"
+      center={[121.23386808788138, 14.367071317719422]}
       zoom={[10.2]}
+      style="mapbox://styles/mapbox/outdoors-v11"
       containerStyle={{
-        height: "94vh",
+        minHeight: "100%",
         width: "100%"
       }}
     >
-      <Layer type="symbol" layout={{ "icon-image": "marker-15" }}>
-        <Feature coordinates={[-0.481747846041145, 51.3233379650232]} />
-      </Layer>
+      {props.children}
     </Mapbox>
   );
 };

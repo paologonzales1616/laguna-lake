@@ -9,7 +9,6 @@ const TimelineChart = dynamic(() => import("../components/TimelineChart"), {
   ssr: false
 });
 
-
 const Timeline = () => {
   const [timeline, setTimeline] = useState([]);
   const [label, setLabel] = useState("pH");
@@ -28,14 +27,17 @@ const Timeline = () => {
     };
     try {
       const response = await fetch(
-        // 'http://localhost:3000/api/timeline',
-        `${window.location.protocol}//${document.location.hostname}/api/timeline`,
+        process.env.NODE_ENV === "production"
+          ? `${window.location.protocol}//${
+              document.location.hostname
+            }/api/timeline`
+          : "http://localhost:3000/api/timeline",
+
         options
       );
       const data = await response.json();
       await setLabel(val);
       setTimeline(data);
-      console.log(data);
     } catch (error) {
       console.error(error);
     }
@@ -72,7 +74,7 @@ const Timeline = () => {
         </Row>
         <Row>
           <Col>
-            <TimelineChart data={timeline} />
+            <TimelineChart label={label} data={timeline} />
           </Col>
         </Row>
       </Container>

@@ -28,8 +28,8 @@ const Timeline = () => {
     };
     try {
       const response = await fetch(
-        'http://localhost:3000/api/timeline',
-        // `${window.location.protocol}//${document.location.hostname}/api/timeline`,
+        // 'http://localhost:3000/api/timeline',
+        `${window.location.protocol}//${document.location.hostname}/api/timeline`,
         options
       );
       const data = await response.json();

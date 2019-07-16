@@ -32,7 +32,7 @@ const Timeline = () => {
       headers: headers,
       method: "POST",
       body: JSON.stringify({
-        feature: val
+        payload: [val]
       })
     };
     try {
@@ -45,7 +45,6 @@ const Timeline = () => {
               document.location.hostname
             }/api/timeline`
           : "http://localhost:3000/api/timeline",
-
         options
       );
       const data = await response.json();
@@ -79,7 +78,7 @@ const Timeline = () => {
                     active={data === label}
                   >
                     {isLoading && data === label ? (
-                      <Spinner size="sm"  color="light" />
+                      <Spinner size="sm" color="light" />
                     ) : (
                       FEATURE_TO_TEXT(data)
                     )}

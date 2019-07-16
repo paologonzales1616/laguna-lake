@@ -8,48 +8,61 @@ const RiversChart = dynamic(() => import("../components/RiversChart"), {
   ssr: false
 });
 
-const Rivers = props => {
+const Rivers = () => {
+  const [value, setValue] = useState([]);
+  const [names, setNames] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const timeline = async () => {
+    const headers = {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    };
+    const options = {
+      headers: headers,
+      method: "POST"
+    };
+
+    try {
+      await setIsLoading(true);
+      const response = await fetch(
+        process.env.NODE_ENV === "production"
+          ? `${window.location.protocol}//${
+              document.location.hostname
+            }/api/rivers`
+          : "http://localhost:3000/api/rivers",
+        options
+      );
+      const data = await response.json();
+      await setNames(data.names);
+      await setValue(data.data);
+      await setIsLoading(false);
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    timeline();
+  }, []);
+
   return (
     <Layout>
       <Container fluid>
         <Row className="p-5">
-          {props.names.map((name, index) => (
-            <Col key={index}  md="6" sm="12">
-              <RiversChart {...{ label: name, data: props.data[name] }} />
-            </Col>
-          ))}
+          {!isLoading && (
+            <>
+              {names.map((name, index) => (
+                <Col key={index} md="6" sm="12">
+                  <RiversChart {...{ label: name, data: value[name] }} />
+                </Col>
+              ))}
+            </>
+          )}
         </Row>
       </Container>
-      <style global jsx>{`
-        .grid-container {
-          display: grid;
-          grid-template-columns: auto auto;
-        }
-      `}</style>
     </Layout>
   );
-};
-
-Rivers.getInitialProps = async () => {
-  const headers = {
-    Accept: "application/json",
-    "Content-Type": "application/json"
-  };
-  const options = {
-    headers: headers,
-    method: "POST"
-  };
-
-  const response = await fetch(
-    process.env.NODE_ENV === "production"
-    ? `${window.location.protocol}//${
-        document.location.hostname
-      }/api/rivers`
-    : "http://localhost:3000/api/rivers",
-    options
-  );
-  const data = await response.json();
-  return { data: data.data, names: data.names };
 };
 
 export default Rivers;

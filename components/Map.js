@@ -1,59 +1,15 @@
-import React, { useState, useEffect } from "react";
-import ReactMapboxGl, { Layer, Feature } from "react-mapbox-gl";
+import React from "react";
+import ReactMapboxGl, { Layer, Feature, GeoJSONLayer } from "react-mapbox-gl";
 import mapInfo from "./MapInfo";
-import fetch from "isomorphic-unfetch";
 import { TEXT_PROPS } from "../configs/Constants";
+import geojson from "../configs/Geojson";
 
 const Mapbox = ReactMapboxGl({
   accessToken:
     "pk.eyJ1IjoicGFkbzY5IiwiYSI6ImNqc2xiMHMxcjJqZmQ0M3M3bDhpM21tbW8ifQ.ucrihizFRCj9M70JR7hmDg"
 });
 
-const headers = {
-  Accept: "application/json",
-  "Content-Type": "application/json"
-};
-
 const Map = props => {
-  const [feature, setFeature] = useState(props.feature);
-  const [stationCondition, setstationCondition] = useState([]);
-
-  const forecast = async () => {
-    const d = new Date();
-    const n = d.getMonth();
-
-    const options = {
-      headers: headers,
-      method: "POST",
-      body: JSON.stringify({
-        payload: [feature, parseInt(n) + 1]
-      })
-    };
-    try {
-      const response = await fetch(
-        process.env.NODE_ENV === "production"
-          ? `${window.location.protocol}//${
-              document.location.hostname
-            }/api/forecast`
-          : `http://localhost:3000/api/forecast`,
-        options
-      );
-      const data = await response.json();
-      console.log(data);
-      setstationCondition(
-        data.sort((a, b) => {
-          return a.station - b.station;
-        })
-      );
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  useEffect(() => {
-    forecast();
-  }, []);
-
   return (
     <Mapbox
       center={[121.23386808788138, 14.367071317719422]}
@@ -64,14 +20,10 @@ const Map = props => {
         width: "100%"
       }}
     >
-      {stationCondition && (
+      {props.stationCondition && (
         <>
-          {stationCondition.map((data, index) => (
-            <Layer
-              key={index}
-              type="fill"
-              paint={{ "fill-color": data.color, "fill-opacity": 0.4 }}
-            >
+          {props.stationCondition.map((data, index) => (
+            <Layer key={index} type="fill" paint={{ "fill-color": data.color }}>
               <Feature coordinates={mapInfo[index].polygon_coords} />
             </Layer>
           ))}
@@ -89,6 +41,13 @@ const Map = props => {
           <Feature coordinates={data.marker_coords} />
         </Layer>
       ))}
+      <GeoJSONLayer
+        data={geojson}
+        linePaint={{
+          "line-color": "black",
+          "line-width": 1
+        }}
+      />
     </Mapbox>
   );
 };

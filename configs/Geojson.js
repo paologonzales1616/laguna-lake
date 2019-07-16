@@ -17,7 +17,7 @@ const geojson = {
       geometry: {
         type: "LineString",
         // Station 1 Central West Bay
-        coordinates: STATION_1
+        coordinates: STATION_1[0]
       }
     },
     {
@@ -25,7 +25,7 @@ const geojson = {
       geometry: {
         type: "LineString",
         //Station 2 East Bay
-        coordinates: STATION_2
+        coordinates: STATION_2[0]
       }
     },
     {
@@ -33,7 +33,7 @@ const geojson = {
       geometry: {
         type: "LineString",
         //Station 4 Central Bay
-        coordinates: STATION_4
+        coordinates: STATION_4[0]
       }
     },
     {
@@ -41,7 +41,7 @@ const geojson = {
       geometry: {
         type: "LineString",
         //Station 5 Northern West
-        coordinates: STATION_5
+        coordinates: STATION_5[0]
       }
     },
     {
@@ -49,7 +49,7 @@ const geojson = {
       geometry: {
         type: "LineString",
         //Station 8 South Bay
-        coordinates: STATION_8
+        coordinates: STATION_8[0]
       }
     },
     {
@@ -57,7 +57,7 @@ const geojson = {
       geometry: {
         type: "LineString",
         //Staion 15 West Bay
-        coordinates: STATION_15
+        coordinates: STATION_15[0]
       }
     },
     {
@@ -65,7 +65,7 @@ const geojson = {
       geometry: {
         type: "LineString",
         //station 16 West Bay
-        coordinates: STATION_16
+        coordinates: STATION_16[0]
       }
     },
     {
@@ -73,7 +73,7 @@ const geojson = {
       geometry: {
         type: "LineString",
         //station 17
-        coordinates: STATION_17
+        coordinates: STATION_17[0]
       }
     },
     {
@@ -81,7 +81,7 @@ const geojson = {
       geometry: {
         type: "LineString",
         //station 18
-        coordinates: STATION_18
+        coordinates: STATION_18[0]
       }
     }
   ]

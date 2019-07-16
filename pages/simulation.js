@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from "react";
 import Layout from "../components/Layout";
 import { Line } from "react-chartjs-2";
-import { Row, Col, Container, Nav, NavItem, NavLink, Spinner } from "reactstrap";
+import {
+  Row,
+  Col,
+  Container,
+  Nav,
+  NavItem,
+  NavLink,
+  Spinner
+} from "reactstrap";
 import { MONTH_NAMES, STATIONS } from "../utils/constant";
 import { FEATURE_TO_TEXT } from "../utils/actions";
 import fetch from "isomorphic-unfetch";
@@ -68,8 +76,7 @@ const Simulation = props => {
       headers: headers,
       method: "POST",
       body: JSON.stringify({
-        feature: props.feature,
-        station: parseInt(station)
+        payload: [props.feature, parseInt(station)]
       })
     };
     try {
@@ -118,7 +125,7 @@ const Simulation = props => {
                     active={data === station}
                   >
                     {isLoading && data === station ? (
-                      <Spinner size="sm"  color="light" />
+                      <Spinner size="sm" color="light" />
                     ) : (
                       `Station ${data}`
                     )}

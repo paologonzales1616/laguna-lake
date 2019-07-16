@@ -37,8 +37,8 @@ def timeline_of_feature(feature):
     print(json.dumps(model.actual_timeline_by_feature(feature)))
 
 
-def data_of_river():
-    print(json.dumps({"data": rivers.get_all_river_data(),
+def data_of_river(feature):
+    print(json.dumps({"data": rivers.get_river_data(feature),
                       "names": rivers.get_all_river_names()}))
 
 
@@ -56,6 +56,6 @@ if __name__ == "__main__":
         timeline_of_feature(sys.argv[2])
 
     elif sys.argv[1] == 'rivers':
-        data_of_river()
+        data_of_river(sys.argv[2])
 
     sys.stdout.flush()

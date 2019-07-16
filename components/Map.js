@@ -1,7 +1,7 @@
 import React from "react";
 import ReactMapboxGl, { Layer, Feature, GeoJSONLayer } from "react-mapbox-gl";
 import mapInfo from "./MapInfo";
-import { TEXT_PROPS } from "../configs/Constants";
+import { TEXT_PROPS, RIVER_COORDINATES } from "../configs/Constants";
 import geojson from "../configs/Geojson";
 
 const Mapbox = ReactMapboxGl({
@@ -20,13 +20,7 @@ const Map = props => {
         width: "100%"
       }}
     >
-          <GeoJSONLayer
-        data={geojson}
-        linePaint={{
-          "line-color": "black",
-          "line-width": 1
-        }}
-    />
+
       {props.stationCondition && (
         <>
           {props.stationCondition.map((data, index) => (
@@ -36,6 +30,15 @@ const Map = props => {
           ))}
         </>
       )}
+
+      <GeoJSONLayer
+        data={geojson}
+        linePaint={{
+          "line-color": "black",
+          "line-width": 1
+        }}
+      />
+
       {mapInfo.map((data, index) => (
         <Layer
           key={index}
@@ -48,6 +51,7 @@ const Map = props => {
           <Feature coordinates={data.marker_coords} />
         </Layer>
       ))}
+<<<<<<< HEAD
           <GeoJSONLayer
         data={geojson}
         linePaint={{
@@ -55,6 +59,23 @@ const Map = props => {
           "line-width": 1
         }}
     />
+=======
+
+      {
+          <>
+              {RIVER_COORDINATES.map((data, index) => (
+                  <Layer
+                      key={index}
+                      type="symbol"
+                      id="marker"
+                      layout={{"icon-image": "marker-15"}}>
+                      <Feature coordinates={data}/>
+                  </Layer>
+              ))}
+          </>
+      }
+
+>>>>>>> 385e4b2948dab65c2f24216a349b9ab445ff9213
     </Mapbox>
   );
 };

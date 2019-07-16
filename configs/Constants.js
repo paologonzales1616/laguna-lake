@@ -3,6 +3,145 @@ export const LINE_PAINT = {
   "line-width": 3
 };
 
+export const RIVER_COORDINATES = [
+ {
+   "river": "Bagumbayan River ( Taguig)",
+   "location": [14.4741684,121.0592819]
+ },
+ {
+   "river": "Baras River ",
+   "location": [14.504972, 121.265333]
+ },
+ {
+   "river": "Bay River (T9)",
+   "location": [14.194222, 121.292778]
+ },
+ {
+   "river": "Binan River ",
+   "location": [14.344194, 121.086750]
+ },
+ {
+   "river": "Buli Creek (Taguig)",
+   "location": [14.577528, 121.104972]
+ },
+ {
+   "river": "Cabuyao River",
+   "location": [14.296944, 121.129056]
+ },
+ {
+   "river": "Jala-jala River",
+   "location": [14.289583, 121.311278]
+ },
+ {
+   "river": "Mangangate River (Muntinlupa) - Downstream",
+   "location": [14.430167, 121.043500]
+ },
+ {
+   "river": "Mangangate River (Muntinlupa) - Upstream ",
+   "location": [14.426528, 121.036000]
+ },
+ {
+   "river": "Manggahan Floodway (Taytay)",
+   "location": [14.565000, 121.108083]
+ },
+ {
+   "river": "Marikina River",
+   "location": [14.676694, 121.108194]
+ },
+ {
+   "river": "Molawin Creek (Los Banos)",
+   "location": [14.171694, 121.253056]
+ },
+ {
+   "river": "Morong River - Downstream ",
+   "location": [14.499083, 121.256222]
+ },
+ {
+   "river": "Morong River - Upstream ",
+   "location": [14.508528, 121.224694]
+ },
+ {
+   "river": "Pagsanjan River (T8)",
+   "location": [14.312000, 121.452639]
+ },
+ {
+   "river": "Pangil River - Downstream ",
+   "location": [14.392417, 121.455056]
+ },
+ {
+   "river": "Pangil River - Ups",
+   "location": [14.398694, 121.467611]
+ },
+ {
+   "river": "Pila River ",
+   "location": [14.245528, 121.352028]
+ },
+ {
+   "river": "Pililla River",
+   "location": [14.470278, 121.305583]
+ },
+ {
+   "river": "San Cristobal River (T3)",
+   "location": [14.228528, 121.181500]
+ },
+ {
+   "river": "San Juan River (T5)",
+   "location": [14.223389, 121.187556]
+ },
+ {
+   "river": "San Pedro River (T2)",
+   "location": [14.369472, 121.064972]
+ },
+ {
+   "river": "Sapang Bato River (Cainta)",
+   "location": [14.596750, 121.110556]
+ },
+ {
+   "river": "Siniloan River",
+   "location": [14.396306, 121.438500]
+ },
+ {
+   "river": "Sta. Cruz River (T6)",
+   "location": [14.296083, 121.405056]
+ },
+ {
+   "river": "Sta. Maria River - Downstream",
+   "location": [14.501583, 121.415778]
+ },
+ {
+   "river": "Sta. Maria River - Upstream ",
+   "location": [14.460583, 121.423056]
+ },
+ {
+   "river": "Sta. Rosa River - Downstream",
+   "location": [14.317000, 121.125333]
+ },
+ {
+   "river": "Sta. Rosa River - Midstream",
+   "location": [14.313028, 121.107778]
+ },
+ {
+   "river": "Sta. Rosa River - Upstream ",
+   "location": [14.308583, 121.099056]
+ },
+ {
+   "river": "Tanay River - Downstream ",
+   "location": [14.484444, 121.283611]
+ },
+ {
+   "river": "Tanay River - Upstream ",
+   "location": [14.502444, 121.292778]
+ },
+ {
+   "river": "Tunasan River (Muntinlupa) - Downstream",
+   "location": [14.378861, 121.056333]
+ },
+ {
+   "river": "Tunasan River (Muntinlupa) - Upstream",
+   "location": [14.370556, 121.051972]
+ }
+];
+
 export const STATION_1 = [
   [
     [121.12908, 14.425445],

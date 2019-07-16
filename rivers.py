@@ -1,24 +1,16 @@
-import pandas as pd
-from os import listdir
+import json
+
+with open('datasets/rivers.json', 'r') as f:
+    dataset = json.load(f)
 
 
-def get_all_river_names(with_file_extension=False):
-    return [s if with_file_extension else
-            s.replace(".csv", "") for
-            s in listdir("datasets/rivers")]
+def get_all_river_names():
+    return [r['river'] for r in dataset]
 
 
-def get_all_river_data():
-    results = {}
-
+def get_river_data(feature):
+    data = {}
     for river_name in get_all_river_names():
-        df = pd.read_csv("datasets/rivers/%s.csv" % river_name,
-                         names=["index", "date", "value"])
-        df = df[["date", "value"]]
-
-        results[river_name] = [
-            {"date": row['date'],
-             "value": row['value']}
-            for index, row in df.iterrows()]
-
-    return results
+        river_data = [r['data'] for r in dataset if r['river'] == river_name][0]
+        data[river_name] = river_data[feature]
+    return data

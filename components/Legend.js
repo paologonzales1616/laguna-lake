@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import fetch from "isomorphic-unfetch";
 import { Table } from "reactstrap";
 const headers = {
   Accept: "application/json",
@@ -19,8 +20,11 @@ const Legend = props => {
 
     try {
       const response = await fetch(
-        `${window.location.protocol}//${document.location.hostname}/api/legend`,
-        // `http://localhost:3000/api/legend`,
+        process.env.NODE_ENV === "production"
+          ? `${window.location.protocol}//${
+              document.location.hostname
+            }/api/legend`
+          : `http://localhost:3000/api/legend`,
         optionsLegend
       );
       const data = await response.json();

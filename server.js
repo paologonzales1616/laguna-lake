@@ -23,70 +23,13 @@ app.prepare().then(() => {
     res.json({ message: "Register API Route" });
   });
 
-  server.post("/api/forecast", async (req, res) => {
-    await PythonShell.run(
-      "main.py",
-      {
-        args: ["forecast", req.body.feature, req.body.month]
-      },
-      (err, results) => {
-        if (err) throw err;
-        res.json(JSON.parse(results));
-      }
-    );
-  });
-
-  server.post("/api/actual", async (req, res) => {
-    await PythonShell.run(
-      "main.py",
-      {
-        args: ["actual", req.body.feature, req.body.station]
-      },
-      (err, results) => {
-        if (err) throw err;
-        res.json(JSON.parse(results));
-      }
-    );
-  });
-
-  server.post("/api/timeline", async (req, res) => {
-    await PythonShell.run(
-      "main.py",
-      {
-        args: ["timeline", req.body.feature]
-      },
-      (err, results) => {
-        if (err) throw err;
-        res.json(JSON.parse(results));
-      }
-    );
-  });
-
-  server.post("/api/legend", async (req, res) => {
-    await PythonShell.run(
-      "main.py",
-      {
-        args: ["legend", req.body.feature]
-      },
-      (err, results) => {
-        if (err) throw err;
-        res.json(JSON.parse(results));
-      }
-    );
-  });
-
-
-  server.post("/api/rivers", async (req, res) => {
-    await PythonShell.run(
-      "main.py",
-      {
-        args: ["rivers"]
-      },
-      (err, results) => {
-        if (err) throw err;
-        res.json(JSON.parse(results));
-      }
-    );
+  server.post("/api/:type", async (req, res) => {
+    const pyshell = await new PythonShell("main.py", {
+      args: [req.params.type, ...(req.body.payload && req.body.payload || [])]
+    });
+    await pyshell.on("message", message => {
+      return res.json(JSON.parse(message));
+    });
   });
 
   server.get("/forecast/:feature", (req, res) => {

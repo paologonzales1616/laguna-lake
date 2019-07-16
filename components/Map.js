@@ -51,31 +51,20 @@ const Map = props => {
           <Feature coordinates={data.marker_coords} />
         </Layer>
       ))}
-<<<<<<< HEAD
-          <GeoJSONLayer
-        data={geojson}
-        linePaint={{
-          "line-color": "black",
-          "line-width": 1
-        }}
-    />
-=======
 
-      {
-          <>
-              {RIVER_COORDINATES.map((data, index) => (
-                  <Layer
-                      key={index}
-                      type="symbol"
-                      id="marker"
-                      layout={{"icon-image": "marker-15"}}>
-                      <Feature coordinates={data}/>
-                  </Layer>
-              ))}
-          </>
-      }
+      {RIVER_COORDINATES.map((data, index) => (
+        <Layer
+          key={index}
+          type="symbol"
+          layout={{
+            ...TEXT_PROPS,
+            "text-field": data.river
+          }}
+        >
+          <Feature coordinates={data.location} />
+        </Layer>
+      ))}
 
->>>>>>> 385e4b2948dab65c2f24216a349b9ab445ff9213
     </Mapbox>
   );
 };

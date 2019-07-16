@@ -20,6 +20,13 @@ const Map = props => {
         width: "100%"
       }}
     >
+          <GeoJSONLayer
+        data={geojson}
+        linePaint={{
+          "line-color": "black",
+          "line-width": 1
+        }}
+    />
       {props.stationCondition && (
         <>
           {props.stationCondition.map((data, index) => (
@@ -41,13 +48,7 @@ const Map = props => {
           <Feature coordinates={data.marker_coords} />
         </Layer>
       ))}
-      <GeoJSONLayer
-        data={geojson}
-        linePaint={{
-          "line-color": "black",
-          "line-width": 1
-        }}
-      />
+
     </Mapbox>
   );
 };

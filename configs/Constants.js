@@ -6,141 +6,142 @@ export const LINE_PAINT = {
 export const RIVER_COORDINATES = [
     {
         river: "Bagumbayan River ( Taguig)",
-        location: [14.4741684, 121.0592819]
+        location: [121.0592819, 14.4741684]
     },
     {
         river: "Baras River ",
-        location: [14.504972, 121.265333]
+        location: [121.265333, 14.504972]
     },
     {
         river: "Bay River (T9)",
-        location: [14.194222, 121.292778]
+        location: [121.292778, 14.194222]
     },
     {
         river: "Binan River ",
-        location: [14.344194, 121.086750]
+        location: [121.086750, 14.344194]
     },
     {
         river: "Buli Creek (Taguig)",
-        location: [14.577528, 121.104972]
+        location: [121.104972, 14.577528]
     },
     {
         river: "Cabuyao River",
-        location: [14.296944, 121.129056]
+        location: [121.129056, 14.296944]
     },
     {
         river: "Jala-jala River",
-        location: [14.289583, 121.311278]
+        location: [121.311278, 14.289583]
     },
     {
         river: "Mangangate River (Muntinlupa) - Downstream",
-        location: [14.430167, 121.043500]
+        location: [121.043500, 14.430167]
     },
     {
         river: "Mangangate River (Muntinlupa) - Upstream ",
-        location: [14.426528, 121.036000]
+        location: [121.036000, 14.426528]
     },
     {
         river: "Manggahan Floodway (Taytay)",
-        location: [14.565000, 121.108083]
+        location: [121.108083, 14.565000]
     },
     {
         river: "Marikina River",
-        location: [14.676694, 121.108194]
+        location: [121.108194, 14.676694]
     },
     {
         river: "Molawin Creek (Los Banos)",
-        location: [14.171694, 121.253056]
+        location: [121.253056, 14.171694]
     },
     {
         river: "Morong River - Downstream ",
-        location: [14.499083, 121.256222]
+        location: [121.256222, 14.499083]
     },
     {
         river: "Morong River - Upstream ",
-        location: [14.508528, 121.224694]
+        location: [121.224694, 14.508528]
     },
     {
         river: "Pagsanjan River (T8)",
-        location: [14.312000, 121.452639]
+        location: [121.452639, 14.312000]
     },
     {
         river: "Pangil River - Downstream ",
-        location: [14.392417, 121.455056]
+        location: [121.455056, 14.392417]
     },
     {
         river: "Pangil River - Ups",
-        location: [14.398694, 121.467611]
+        location: [121.467611, 14.398694]
     },
     {
         river: "Pila River ",
-        location: [14.245528, 121.352028]
+        location: [121.352028, 14.245528]
     },
     {
         river: "Pililla River",
-        location: [14.470278, 121.305583]
+        location: [121.305583, 14.470278]
     },
     {
         river: "San Cristobal River (T3)",
-        location: [14.228528, 121.181500]
+        location: [121.181500, 14.228528]
     },
     {
         river: "San Juan River (T5)",
-        location: [14.223389, 121.187556]
+        location: [121.187556, 14.223389]
     },
     {
         river: "San Pedro River (T2)",
-        location: [14.369472, 121.064972]
+        location: [121.064972, 14.369472]
     },
     {
         river: "Sapang Bato River (Cainta)",
-        location: [14.596750, 121.110556]
+        location: [121.110556, 14.596750]
     },
     {
         river: "Siniloan River",
-        location: [14.396306, 121.438500]
+        location: [121.438500, 14.396306]
     },
     {
         river: "Sta. Cruz River (T6)",
-        location: [14.296083, 121.405056]
+        location: [121.405056, 14.296083]
     },
     {
         river: "Sta. Maria River - Downstream",
-        location: [14.501583, 121.415778]
+        location: [121.415778, 14.501583]
     },
     {
         river: "Sta. Maria River - Upstream ",
-        location: [14.460583, 121.423056]
+        location: [121.423056, 14.460583]
     },
     {
         river: "Sta. Rosa River - Downstream",
-        location: [14.317000, 121.125333]
+        location: [121.125333, 14.317000]
     },
     {
         river: "Sta. Rosa River - Midstream",
-        location: [14.313028, 121.107778]
+        location: [121.107778, 14.313028]
     },
     {
         river: "Sta. Rosa River - Upstream ",
-        location: [14.308583, 121.099056]
+        location: [121.099056, 14.308583]
     },
     {
         river: "Tanay River - Downstream ",
-        location: [14.484444, 121.283611]
+        location: [121.283611, 14.484444]
     },
     {
         river: "Tanay River - Upstream ",
-        location: [14.502444, 121.292778]
+        location: [121.292778, 14.502444]
     },
     {
         river: "Tunasan River (Muntinlupa) - Downstream",
-        location: [14.378861, 121.056333]
+        location: [121.056333, 14.378861]
     },
     {
         river: "Tunasan River (Muntinlupa) - Upstream",
-        location: [14.370556, 121.051972]
+        location: [121.051972, 14.370556]
     }
 ];
+
 
 export const STATION_1 = [
     [

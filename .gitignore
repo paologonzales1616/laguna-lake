@@ -20,3 +20,5 @@ yarn-error.log*
 
 # virtual environment
 /venv
+/.vscode
+/__pycache__

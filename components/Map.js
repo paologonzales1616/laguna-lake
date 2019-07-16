@@ -26,8 +26,7 @@ const Map = props => {
       headers: headers,
       method: "POST",
       body: JSON.stringify({
-        month: parseInt(n) + 1,
-        feature: feature
+        payload: [feature, parseInt(n) + 1]
       })
     };
     try {
@@ -51,9 +50,9 @@ const Map = props => {
     }
   };
 
-  // useEffect(() => {
-  //   forecast();
-  // }, []);
+  useEffect(() => {
+    forecast();
+  }, []);
 
   return (
     <Mapbox

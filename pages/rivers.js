@@ -2,9 +2,19 @@ import React, { useState, useEffect } from "react";
 import Layout from "../components/Layout";
 import fetch from "isomorphic-unfetch";
 import dynamic from "next/dynamic";
-import {Container, Row, Col, Nav, NavItem, NavLink, Spinner} from "reactstrap";
-import {RIVER_FEATURES} from "../utils/constant";
-import {FEATURE_TO_TEXT} from "../utils/actions";
+import {
+  Container,
+  Row,
+  Col,
+  Nav,
+  NavItem,
+  NavLink,
+  Spinner,
+  Button
+} from "reactstrap";
+import { RIVER_FEATURES } from "../utils/constant";
+import { FEATURE_TO_TEXT } from "../utils/actions";
+import PrintProvider, { Print, NoPrint } from "react-easy-print";
 
 const RiversChart = dynamic(() => import("../components/RiversChart"), {
   ssr: false
@@ -52,55 +62,85 @@ const Rivers = () => {
   }, []);
 
   return (
-      <Layout>
-      <Container className="p-5">
-        <Row>
-          <Col className="text-center pb-3">
-            <h2>Rivers</h2>
-          </Col>
-        </Row>
-        <Row>
-          <Col className="pb-3">
-            <Nav justified fill pills>
-              {RIVER_FEATURES.map((data, index) => (
-                <NavItem key={index}>
-                  <NavLink
-                    href="#"
-                    onClick={() => {
-                      setLabel(data);
-                      rivers(data);
-                    }}
-                    active={data === label}
-                  >
-                    {isLoading && data === label ? (
-                      <Spinner size="sm" color="light" />
-                    ) : (
-                      FEATURE_TO_TEXT(data)
+    <Layout>
+      <Print>
+        <div className="map-grid">
+          <Container fluid className="p-5">
+            <Row>
+              <Col className="text-center pb-3">
+                <h2>Rivers</h2>
+              </Col>
+            </Row>
+            <Row>
+              <Col className="pb-3">
+                <Nav justified fill pills>
+                  {RIVER_FEATURES.map((data, index) => (
+                    <NavItem key={index}>
+                      <NavLink
+                        href="#"
+                        onClick={() => {
+                          setLabel(data);
+                          rivers(data);
+                        }}
+                        active={data === label}
+                      >
+                        {isLoading && data === label ? (
+                          <Spinner size="sm" color="light" />
+                        ) : (
+                          FEATURE_TO_TEXT(data)
+                        )}
+                      </NavLink>
+                    </NavItem>
+                  ))}
+                </Nav>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <Container fluid>
+                  <Row className="p-5">
+                    {!isLoading && (
+                      <>
+                        {names.map((name, index) => (
+                          <Col key={index} md="6" sm="12">
+                            <RiversChart
+                              {...{ label: name, data: value[name] }}
+                            />
+                          </Col>
+                        ))}
+                      </>
                     )}
-                  </NavLink>
-                </NavItem>
-              ))}
-            </Nav>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <Container fluid>
-              <Row className="p-5">
-                {!isLoading && (
-                  <>
-                    {names.map((name, index) => (
-                      <Col key={index} md="6" sm="12">
-                        <RiversChart {...{ label: name, data: value[name] }} />
-                      </Col>
-                    ))}
-                  </>
-                )}
-              </Row>
-            </Container>
-          </Col>
-        </Row>
-      </Container>
+                  </Row>
+                </Container>
+              </Col>
+            </Row>
+          </Container>
+          <div className="print-page">
+            <NoPrint>
+              <Button onClick={window.print()} color="primary">PRINT</Button>
+            </NoPrint>
+          </div>
+        </div>
+      </Print>
+      <style jsx>{`
+        .map-grid {
+          display: grid;
+        }
+        .print-page {
+          position: absolute;
+          top: 10;
+          right: 0;
+          max-width: 320px;
+          background: #fff;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+          margin: 20px;
+          font-size: 13px;
+          line-height: 2;
+          color: #6b6b76;
+          outline: none;
+          text-transform: uppercase;
+        }
+      `}</style>
     </Layout>
   );
 };

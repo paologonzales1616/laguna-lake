@@ -1,8 +1,6 @@
 import { Line } from "react-chartjs-2";
 
 const RiversChart = props => {
-    console.log(props.data);
-
     const data = {
         labels: props.data.map(x => x.date),
         datasets: [

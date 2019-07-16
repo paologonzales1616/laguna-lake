@@ -1,6 +1,6 @@
 import Layout from "../components/Layout";
 import dynamic from "next/dynamic";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import moment from "moment";
 import {
   Row,
@@ -30,7 +30,7 @@ const Index = () => {
   return (
     <Layout>
       <div className="map-grid">
-        <Map />
+        <Map feature={feature} />
         <div className="control-panel">
           <h3>FORECASTING</h3>
           <h6>{FEATURE_TO_TEXT(feature)}</h6>
@@ -51,7 +51,7 @@ const Index = () => {
                   setLegend(false);
                 }}
                 bsSize="sm"
-                defaultValue={"wqi"}
+                defaultValue={feature}
               >
                 {FEATURES.map((data, index) => (
                   <option value={data} key={index}>

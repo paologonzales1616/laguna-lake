@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import Layout from "../components/Layout";
 import fetch from "isomorphic-unfetch";
 import dynamic from "next/dynamic";
@@ -40,8 +41,11 @@ Rivers.getInitialProps = async () => {
   };
 
   const response = await fetch(
-    'http://localhost:3000/api/rivers',
-    // `${document.location.protocol}//${document.location.hostname}/api/rivers`,
+    process.env.NODE_ENV === "production"
+    ? `${window.location.protocol}//${
+        document.location.hostname
+      }/api/rivers`
+    : "http://localhost:3000/api/rivers",
     options
   );
   const data = await response.json();

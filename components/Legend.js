@@ -14,7 +14,7 @@ const Legend = props => {
       headers: headers,
       method: "POST",
       body: JSON.stringify({
-        feature: props.legend
+        payload: [props.legend]
       })
     };
 

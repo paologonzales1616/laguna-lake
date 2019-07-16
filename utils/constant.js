@@ -25,3 +25,11 @@ export const FEATURES = [
   "fecal_coliforms",
   "wqi"
 ];
+
+export const RIVER_FEATURES = [
+  "pH",
+  "ammonia",
+  "nitrate",
+  "inorganic_phosphate",
+  "dissolved_oxygen",
+];

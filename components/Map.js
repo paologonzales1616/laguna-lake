@@ -52,19 +52,18 @@ const Map = props => {
         </Layer>
       ))}
 
-      {
-          <>
-              {RIVER_COORDINATES.map((data, index) => (
-                  <Layer
-                      key={index}
-                      type="symbol"
-                      id="marker"
-                      layout={{"icon-image": "marker-15"}}>
-                      <Feature coordinates={data}/>
-                  </Layer>
-              ))}
-          </>
-      }
+      {RIVER_COORDINATES.map((data, index) => (
+        <Layer
+          key={index}
+          type="symbol"
+          layout={{
+            ...TEXT_PROPS,
+            "text-field": data.river
+          }}
+        >
+          <Feature coordinates={data.location} />
+        </Layer>
+      ))}
 
     </Mapbox>
   );

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Layout from "../components/Layout";
 import { Line } from "react-chartjs-2";
-import { Row, Col, Container, Nav, NavItem, NavLink } from "reactstrap";
+import { Row, Col, Container, Nav, NavItem, NavLink, Spinner } from "reactstrap";
 import { MONTH_NAMES, STATIONS } from "../utils/constant";
 import { FEATURE_TO_TEXT } from "../utils/actions";
 import fetch from "isomorphic-unfetch";
@@ -9,6 +9,7 @@ const Simulation = props => {
   const [station, setStation] = useState(1);
   const [actual, setActual] = useState([]);
   const [forecast, setForecast] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const data = {
     labels: MONTH_NAMES,
@@ -72,13 +73,19 @@ const Simulation = props => {
       })
     };
     try {
+      await setIsLoading(true);
       const response = await fetch(
-        `${window.location.protocol}//${document.location.hostname}/api/actual`,
+        process.env.NODE_ENV === "production"
+          ? `${window.location.protocol}//${
+              document.location.hostname
+            }/api/actual`
+          : `http://localhost:3000/api/actual`,
         options
       );
       const data = await response.json();
       setActual(data.actual);
       setForecast(data.forecast);
+      await setIsLoading(false);
       console.log(data);
     } catch (error) {
       console.error(error);
@@ -109,7 +116,13 @@ const Simulation = props => {
                     }}
                     href="#"
                     active={data === station}
-                  >{`Station ${data}`}</NavLink>
+                  >
+                    {isLoading && data === station ? (
+                      <Spinner size="sm"  color="light" />
+                    ) : (
+                      `Station ${data}`
+                    )}
+                  </NavLink>
                 </NavItem>
               ))}
             </Nav>

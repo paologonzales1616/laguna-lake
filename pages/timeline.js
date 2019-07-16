@@ -12,6 +12,7 @@ import {
 import dynamic from "next/dynamic";
 import { FEATURES } from "../utils/constant";
 import { FEATURE_TO_TEXT } from "../utils/actions";
+import fetch from "isomorphic-unfetch";
 
 const TimelineChart = dynamic(() => import("../components/TimelineChart"), {
   ssr: false
@@ -78,7 +79,7 @@ const Timeline = () => {
                     active={data === label}
                   >
                     {isLoading && data === label ? (
-                      <Spinner color="light" />
+                      <Spinner size="sm"  color="light" />
                     ) : (
                       FEATURE_TO_TEXT(data)
                     )}

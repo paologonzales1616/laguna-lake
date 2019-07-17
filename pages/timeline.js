@@ -13,6 +13,8 @@ import dynamic from "next/dynamic";
 import { FEATURES } from "../utils/constant";
 import { FEATURE_TO_TEXT } from "../utils/actions";
 import fetch from "isomorphic-unfetch";
+import Doc from "../utils/docService";
+import PdfContainer from "../utils/pdfContainer";
 
 const TimelineChart = dynamic(() => import("../components/TimelineChart"), {
   ssr: false
@@ -22,7 +24,7 @@ const Timeline = () => {
   const [timeline, setTimeline] = useState([]);
   const [label, setLabel] = useState("pH");
   const [isLoading, setIsLoading] = useState(false);
-
+  const createPdf = html => Doc.createPdf(html);
   const simulate = async val => {
     const headers = {
       Accept: "application/json",
@@ -61,39 +63,41 @@ const Timeline = () => {
 
   return (
     <Layout>
-      <Container className="p-5">
-        <Row>
-          <Col className="text-center pb-3">
-            <h2>Timeline</h2>
-          </Col>
-        </Row>
-        <Row>
-          <Col className="pb-3">
-            <Nav justified fill pills>
-              {FEATURES.map((data, index) => (
-                <NavItem key={index}>
-                  <NavLink
-                    href="#"
-                    onClick={() => simulate(data)}
-                    active={data === label}
-                  >
-                    {isLoading && data === label ? (
-                      <Spinner size="sm" color="light" />
-                    ) : (
-                      FEATURE_TO_TEXT(data)
-                    )}
-                  </NavLink>
-                </NavItem>
-              ))}
-            </Nav>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <TimelineChart label={FEATURE_TO_TEXT(label)} data={timeline} />
-          </Col>
-        </Row>
-      </Container>
+      <PdfContainer createPdf={createPdf}>
+        <Container className="p-5">
+          <Row>
+            <Col className="text-center pb-3">
+              <h2>Timeline</h2>
+            </Col>
+          </Row>
+          <Row>
+            <Col className="pb-3">
+              <Nav justified fill pills>
+                {FEATURES.map((data, index) => (
+                  <NavItem key={index}>
+                    <NavLink
+                      href="#"
+                      onClick={() => simulate(data)}
+                      active={data === label}
+                    >
+                      {isLoading && data === label ? (
+                        <Spinner size="sm" color="light" />
+                      ) : (
+                        FEATURE_TO_TEXT(data)
+                      )}
+                    </NavLink>
+                  </NavItem>
+                ))}
+              </Nav>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <TimelineChart label={FEATURE_TO_TEXT(label)} data={timeline} />
+            </Col>
+          </Row>
+        </Container>
+      </PdfContainer>
     </Layout>
   );
 };

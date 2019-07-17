@@ -171,7 +171,16 @@ const Index = () => {
             </PopoverBody>
           </Popover>
         </div>
+        <div className="home-overview">
+          <div>
+            Using <b>Deep Learning Algorithm</b>, the system has the capability to
+            learn the water quality from the dataset using the training set and
+            simulate a particular scenario based on the water quality
+            parameters.
+          </div>
+        </div>
       </div>
+
       <style jsx>{`
         .map-grid {
           height: 100%;
@@ -188,6 +197,22 @@ const Index = () => {
         p {
           letter-spacing: 5px;
           text-align: center;
+        }
+        .home-overview {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          max-width: 320px;
+          background: #fff;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+          padding: 12px 24px;
+          margin: 20px;
+          font-size: 13px;
+          line-height: ;
+          color: #6b6b76;
+          outline: none;
+          text-align: justify;
+          text-transform: uppercase;
         }
         .control-panel {
           position: absolute;

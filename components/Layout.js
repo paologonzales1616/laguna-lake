@@ -1,6 +1,5 @@
 import Head from "./Head";
 import Navigation from "./Navigation";
-import PrintProvider from "react-easy-print";
 
 const Layout = props => {
   return (
@@ -9,9 +8,7 @@ const Layout = props => {
       <div className="header">
         <Navigation />
       </div>
-      <div className="main">
-        <PrintProvider>{props.children}</PrintProvider>
-      </div>
+      <div className="main">{props.children}</div>
       <style global jsx>{`
         body,
         html {

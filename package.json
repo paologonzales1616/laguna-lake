@@ -21,9 +21,10 @@
     "react": "16.8.6",
     "react-chartjs-2": "^2.7.6",
     "react-dom": "16.8.6",
-    "react-easy-print": "^0.6.0",
     "react-input-slider": "^5.0.15",
     "react-mapbox-gl": "^4.4.0",
-    "reactstrap": "^8.0.0"
+    "reactstrap": "^8.0.0",
+    "@progress/kendo-drawing": "1.5.7",
+    "@progress/kendo-react-pdf": "2.0.0"
   }
 }

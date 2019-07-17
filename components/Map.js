@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactMapboxGl, { Layer, Feature, GeoJSONLayer } from "react-mapbox-gl";
 import mapInfo from "./MapInfo";
 import { TEXT_PROPS, RIVER_COORDINATES } from "../configs/Constants";
@@ -20,7 +20,6 @@ const Map = props => {
         width: "100%"
       }}
     >
-
       {props.stationCondition && (
         <>
           {props.stationCondition.map((data, index) => (
@@ -30,7 +29,6 @@ const Map = props => {
           ))}
         </>
       )}
-
       <GeoJSONLayer
         data={geojson}
         linePaint={{
@@ -38,7 +36,6 @@ const Map = props => {
           "line-width": 1
         }}
       />
-
       {mapInfo.map((data, index) => (
         <Layer
           key={index}
@@ -64,7 +61,6 @@ const Map = props => {
           <Feature coordinates={data.location} />
         </Layer>
       ))}
-
     </Mapbox>
   );
 };

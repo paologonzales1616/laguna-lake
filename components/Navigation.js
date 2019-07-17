@@ -29,7 +29,7 @@ const Navigation = () => {
           </NavItem>
           <UncontrolledDropdown nav inNavbar>
             <DropdownToggle nav caret>
-              Forecast
+              Water Quality Maps
             </DropdownToggle>
             <DropdownMenu right>
               <Link href="/forecast/pH">
@@ -128,7 +128,7 @@ const Navigation = () => {
           </UncontrolledDropdown>
           <NavItem>
             <Link href="/timeline">
-              <a className="nav-link">Timeline</a>
+              <a className="nav-link">Data Visualization</a>
             </Link>
           </NavItem>
           <NavItem>

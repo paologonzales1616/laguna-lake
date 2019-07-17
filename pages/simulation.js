@@ -13,12 +13,14 @@ import {
 import { MONTH_NAMES, STATIONS } from "../utils/constant";
 import { FEATURE_TO_TEXT } from "../utils/actions";
 import fetch from "isomorphic-unfetch";
+import Doc from "../utils/docService";
+import PdfContainer from "../utils/pdfContainer";
 const Simulation = props => {
   const [station, setStation] = useState(1);
   const [actual, setActual] = useState([]);
   const [forecast, setForecast] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-
+  const createPdf = html => Doc.createPdf(html);
   const data = {
     labels: MONTH_NAMES,
     datasets: [
@@ -105,6 +107,8 @@ const Simulation = props => {
 
   return (
     <Layout>
+      <PdfContainer createPdf={createPdf}>
+
       <Container className="p-5">
         <Row>
           <Col className="text-center pb-3">
@@ -141,6 +145,7 @@ const Simulation = props => {
           </Col>
         </Row>
       </Container>
+      </PdfContainer>
     </Layout>
   );
 };

@@ -5,9 +5,15 @@ import { TEXT_PROPS, RIVER_COORDINATES } from "../configs/Constants";
 import geojson from "../configs/Geojson";
 
 const Mapbox = ReactMapboxGl({
+  minZoom: 10.2,
+  maxZoom: 12,
   accessToken:
     "pk.eyJ1IjoicGFkbzY5IiwiYSI6ImNqc2xiMHMxcjJqZmQ0M3M3bDhpM21tbW8ifQ.ucrihizFRCj9M70JR7hmDg"
 });
+const bounds = [
+  [120.6768888294888, 14.081271873141716], // Southwest coordinates
+  [121.85197381492884, 14.63991902621649] // Northeast coordinates
+];
 
 const Map = props => {
   return (
@@ -15,6 +21,7 @@ const Map = props => {
       center={[121.23386808788138, 14.367071317719422]}
       zoom={[10.2]}
       style="mapbox://styles/mapbox/outdoors-v11"
+      maxBounds={bounds}
       containerStyle={{
         height: "100%",
         width: "100%"

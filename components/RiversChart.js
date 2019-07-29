@@ -27,11 +27,7 @@ const RiversChart = props => {
     ]
   };
 
-  return (
-
-        <Line data={data} />
-
-  );
+  return <Line data={data} />;
 };
 
 export default RiversChart;

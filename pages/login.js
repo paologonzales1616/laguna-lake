@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import Layout from "../components/Layout";
 import {
   Form,
@@ -7,9 +8,48 @@ import {
   Container,
   Row,
   Col,
-  Button
+  Button,
+  Spinner
 } from "reactstrap";
+
+const headers = {
+  Accept: "application/json",
+  "Content-Type": "application/json"
+};
+
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const _login = async () => {
+    const options = {
+      headers: headers,
+      method: "POST",
+      body: JSON.stringify({
+        email,
+        password
+      })
+    };
+    try {
+      await setIsLoading(true);
+      const response = await fetch(
+        process.env.NODE_ENV === "production"
+          ? `${window.location.protocol}/${
+              document.location.hostname
+            }/api/login`
+          : `http://localhost:3000/api/login`,
+        options
+      );
+      const data = await response.json();
+
+      await setIsLoading(false);
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <Layout>
       <Container>
@@ -19,16 +59,26 @@ const Login = () => {
               <h1 className="text-center">Login</h1>
               <Form>
                 <FormGroup>
-                  <Label for="exampleEmail">Email</Label>
-                  <Input type="email" placeholder="Enter Email Address" />
+                  <Label>Email</Label>
+                  <Input
+                    value={email}
+                    onChange={e => setEmail(e.target.value)}
+                    type="email"
+                    placeholder="Enter Email Address"
+                  />
                 </FormGroup>
                 <FormGroup>
-                  <Label for="examplePassword">Password</Label>
-                  <Input type="password" placeholder="Enter Password" />
+                  <Label>Password</Label>
+                  <Input
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
+                    type="password"
+                    placeholder="Enter Password"
+                  />
                 </FormGroup>
               </Form>
-              <Button block color="primary">
-                Login
+              <Button onClick={() => _login()} block color="primary">
+                {isLoading ? <Spinner size="sm" color="light" /> : "Login"}
               </Button>
             </div>
           </Col>

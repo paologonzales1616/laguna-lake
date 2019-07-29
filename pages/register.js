@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import Layout from "../components/Layout";
 import {
   Form,
@@ -10,6 +11,38 @@ import {
   Button
 } from "reactstrap";
 const Register = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const _register = async () => {
+    const options = {
+      headers: headers,
+      method: "POST",
+      body: JSON.stringify({
+        email,
+        password
+      })
+    };
+    try {
+      await setIsLoading(true);
+      const response = await fetch(
+        process.env.NODE_ENV === "production"
+          ? `${window.location.protocol}/${
+              document.location.hostname
+            }/api/login`
+          : `http://localhost:3000/api/register`,
+        options
+      );
+      const data = await response.json();
+
+      await setIsLoading(false);
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <Layout>
       <Container>
@@ -19,19 +52,19 @@ const Register = () => {
               <h1 className="text-center">Register</h1>
               <Form>
                 <FormGroup>
-                  <Label for="exampleEmail">Name</Label>
+                  <Label>Name</Label>
                   <Input type="email" placeholder="Enter Name" />
                 </FormGroup>
                 <FormGroup>
-                  <Label for="exampleEmail">Email</Label>
+                  <Label>Email</Label>
                   <Input type="email" placeholder="Enter Email Address" />
                 </FormGroup>
                 <FormGroup>
-                  <Label for="examplePassword">Password</Label>
+                  <Label>Password</Label>
                   <Input type="password" placeholder="Enter Password" />
                 </FormGroup>
                 <FormGroup>
-                  <Label for="examplePassword">Confirm Password</Label>
+                  <Label>Confirm Password</Label>
                   <Input type="password" placeholder="Enter Password Again" />
                 </FormGroup>
               </Form>

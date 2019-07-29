@@ -85,7 +85,7 @@ const Simulation = props => {
       await setIsLoading(true);
       const response = await fetch(
         process.env.NODE_ENV === "production"
-          ? `${window.location.protocol}//${
+          ? `${window.location.protocol}/${
               document.location.hostname
             }/api/actual`
           : `http://localhost:3000/api/actual`,

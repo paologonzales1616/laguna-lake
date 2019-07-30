@@ -68,6 +68,7 @@ app.prepare().then(() => {
         return res.jsonp({
           name: doc.name,
           email: doc.email,
+          admin: doc.admin,
           token: privateSign(doc.name, doc.email)
         });
       });
@@ -138,6 +139,10 @@ app.prepare().then(() => {
         return res.json(doc);
       });
     });
+  });
+  server.post("/api/data", async (req, res) => {
+    console.log(req.body);
+    return res.json({});
   });
 
   server.post("/api/:type", async (req, res) => {

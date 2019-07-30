@@ -8,9 +8,17 @@ import {
   Container,
   Row,
   Col,
-  Button
+  Button,
+  Spinner
 } from "reactstrap";
+const headers = {
+  Accept: "application/json",
+  "Content-Type": "application/json"
+};
+
 const Register = () => {
+  const [name, setName] = useState("");
+  const [password2, setPassword2] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -21,7 +29,8 @@ const Register = () => {
       method: "POST",
       body: JSON.stringify({
         email,
-        password
+        password,
+        name
       })
     };
     try {
@@ -35,7 +44,6 @@ const Register = () => {
         options
       );
       const data = await response.json();
-
       await setIsLoading(false);
       console.log(data);
     } catch (error) {
@@ -53,23 +61,43 @@ const Register = () => {
               <Form>
                 <FormGroup>
                   <Label>Name</Label>
-                  <Input type="email" placeholder="Enter Name" />
+                  <Input
+                    value={name}
+                    onChange={e => setName(e.target.value)}
+                    type="text"
+                    placeholder="Enter Name"
+                  />
                 </FormGroup>
                 <FormGroup>
                   <Label>Email</Label>
-                  <Input type="email" placeholder="Enter Email Address" />
+                  <Input
+                    value={email}
+                    onChange={e => setEmail(e.target.value)}
+                    type="email"
+                    placeholder="Enter Email Address"
+                  />
                 </FormGroup>
                 <FormGroup>
                   <Label>Password</Label>
-                  <Input type="password" placeholder="Enter Password" />
+                  <Input
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
+                    type="password"
+                    placeholder="Enter Password"
+                  />
                 </FormGroup>
                 <FormGroup>
                   <Label>Confirm Password</Label>
-                  <Input type="password" placeholder="Enter Password Again" />
+                  <Input
+                    value={password2}
+                    onChange={e => setPassword2(e.target.value)}
+                    type="password"
+                    placeholder="Enter Password Again"
+                  />
                 </FormGroup>
               </Form>
-              <Button block color="primary">
-                Register
+              <Button onClick={() => _register()} block color="primary">
+                {isLoading ? <Spinner size="sm" color="light" /> : "Register"}
               </Button>
             </div>
           </Col>

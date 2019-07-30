@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Layout from "../components/Layout";
 import {
   Form,
@@ -11,6 +11,7 @@ import {
   Button,
   Spinner
 } from "reactstrap";
+import { UserContext } from "../configs/store";
 
 const headers = {
   Accept: "application/json",
@@ -18,11 +19,13 @@ const headers = {
 };
 
 const Login = () => {
+  const userContext = useContext(UserContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const _login = async () => {
+  const _login = async e => {
+    e.preventDefault();
     const options = {
       headers: headers,
       method: "POST",
@@ -42,7 +45,17 @@ const Login = () => {
         options
       );
       const data = await response.json();
-
+      if (data.name && data.email && data.token) {
+        localStorage.setItem("name", data.name);
+        localStorage.setItem("email", data.email);
+        localStorage.setItem("token", data.token);
+        console.log(userContext);
+        // userContext.setUser({
+        //   name: data.name,
+        //   email: data.email,
+        //   token: data.token
+        // });
+      }
       await setIsLoading(false);
       console.log(data);
     } catch (error) {
@@ -57,7 +70,7 @@ const Login = () => {
           <Col sm={{ size: 12 }} md={{ size: 6, offset: 3 }}>
             <div className="panel">
               <h1 className="text-center">Login</h1>
-              <Form>
+              <Form onSubmit={_login}>
                 <FormGroup>
                   <Label>Email</Label>
                   <Input
@@ -76,10 +89,10 @@ const Login = () => {
                     placeholder="Enter Password"
                   />
                 </FormGroup>
+                <Button type="submit" block color="primary">
+                  {isLoading ? <Spinner size="sm" color="light" /> : "Login"}
+                </Button>
               </Form>
-              <Button onClick={() => _login()} block color="primary">
-                {isLoading ? <Spinner size="sm" color="light" /> : "Login"}
-              </Button>
             </div>
           </Col>
         </Row>

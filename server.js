@@ -69,7 +69,6 @@ app.prepare().then(() => {
           name: doc.name,
           email: doc.email,
           token: privateSign(doc.name, doc.email),
-          refresh_token: refreshSign(doc.name, doc.email)
         });
       });
     }

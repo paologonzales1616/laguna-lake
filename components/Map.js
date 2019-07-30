@@ -6,7 +6,7 @@ import geojson from "../configs/Geojson";
 
 const Mapbox = ReactMapboxGl({
   minZoom: 10.2,
-  maxZoom: 12,
+  maxZoom: 16,
   accessToken:
     "pk.eyJ1IjoicGFkbzY5IiwiYSI6ImNqc2xiMHMxcjJqZmQ0M3M3bDhpM21tbW8ifQ.ucrihizFRCj9M70JR7hmDg"
 });
@@ -22,12 +22,15 @@ const Map = props => {
       zoom={[10.2]}
       style="mapbox://styles/mapbox/outdoors-v11"
       maxBounds={bounds}
+      onClick={(map, evt) =>
+        console.log(`[${evt.lngLat.lng}, ${evt.lngLat.lat}],`)
+      }
       containerStyle={{
         height: "100%",
         width: "100%"
       }}
     >
-      {props.stationCondition && (
+      {/* {props.stationCondition && (
         <>
           {props.stationCondition.map((data, index) => (
             <Layer key={index} type="fill" paint={{ "fill-color": data.color }}>
@@ -35,7 +38,7 @@ const Map = props => {
             </Layer>
           ))}
         </>
-      )}
+      )} */}
       <GeoJSONLayer
         data={geojson}
         linePaint={{

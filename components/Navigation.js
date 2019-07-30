@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Link from "next/link";
 import {
   Collapse,
@@ -11,9 +11,19 @@ import {
   DropdownMenu,
   DropdownItem
 } from "reactstrap";
+import { UserContext } from "../configs/store";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const userContext = useContext(UserContext);
+
+  const _logout = () => {
+    userContext.setUser({});
+    localStorage.removeItem("name");
+    localStorage.removeItem("email");
+    localStorage.removeItem("token");
+  };
+
   return (
     <Navbar color="primary" dark expand="md">
       <Link href="/">
@@ -148,16 +158,34 @@ const Navigation = () => {
           </NavItem>
         </Nav>
         <Nav className="ml-auto" navbar>
-          <NavItem>
-            <Link href="/register">
-              <a className="nav-link">Register</a>
-            </Link>
-          </NavItem>
-          <NavItem>
-            <Link href="/login">
-              <a className="nav-link">Login</a>
-            </Link>
-          </NavItem>
+          {userContext.user.name &&
+          userContext.user.token &&
+          userContext.user.email ? (
+            <UncontrolledDropdown nav inNavbar>
+              <DropdownToggle nav caret>
+                {userContext.user.email}
+              </DropdownToggle>
+              <DropdownMenu right>
+                <DropdownItem>Option 1</DropdownItem>
+                <DropdownItem>Option 2</DropdownItem>
+                <DropdownItem divider />
+                <DropdownItem onClick={() => _logout()}>Logout</DropdownItem>
+              </DropdownMenu>
+            </UncontrolledDropdown>
+          ) : (
+            <>
+              <NavItem>
+                <Link href="/register">
+                  <a className="nav-link">Register</a>
+                </Link>
+              </NavItem>
+              <NavItem>
+                <Link href="/login">
+                  <a className="nav-link">Login</a>
+                </Link>
+              </NavItem>
+            </>
+          )}
         </Nav>
       </Collapse>
     </Navbar>

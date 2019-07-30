@@ -30,7 +30,7 @@ const Map = props => {
         width: "100%"
       }}
     >
-      {/* {props.stationCondition && (
+      {props.stationCondition && (
         <>
           {props.stationCondition.map((data, index) => (
             <Layer key={index} type="fill" paint={{ "fill-color": data.color }}>
@@ -38,7 +38,7 @@ const Map = props => {
             </Layer>
           ))}
         </>
-      )} */}
+      )}
       <GeoJSONLayer
         data={geojson}
         linePaint={{

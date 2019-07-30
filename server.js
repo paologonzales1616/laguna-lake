@@ -68,7 +68,7 @@ app.prepare().then(() => {
         return res.jsonp({
           name: doc.name,
           email: doc.email,
-          token: privateSign(doc.name, doc.email),
+          token: privateSign(doc.name, doc.email)
         });
       });
     }
@@ -127,6 +127,19 @@ app.prepare().then(() => {
     }
   );
 
+  server.get("/api/users", async (req, res) => {
+    User.find({ admin: false }, ["name", "email", "disable"], (err, doc) => {
+      return res.json(doc);
+    });
+  });
+  server.delete("/api/users", async (req, res) => {
+    User.findOneAndRemove({ email: req.body.email }, (err, del) => {
+      User.find({}, ["name", "email", "disable"], (err, doc) => {
+        return res.json(doc);
+      });
+    });
+  });
+
   server.post("/api/:type", async (req, res) => {
     const pyshell = await new PythonShell("main.py", {
       args: [req.params.type, ...((req.body.payload && req.body.payload) || [])]
@@ -166,6 +179,14 @@ app.prepare().then(() => {
 
   server.get("/login", (req, res) => {
     return app.render(req, res, "/login", req.query);
+  });
+
+  server.get("/users", (req, res) => {
+    return app.render(req, res, "/user_management", req.query);
+  });
+
+  server.get("/data", (req, res) => {
+    return app.render(req, res, "/data_management", req.query);
   });
 
   server.get(["/home", "/"], (req, res) => {

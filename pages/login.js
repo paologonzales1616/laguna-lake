@@ -49,12 +49,11 @@ const Login = () => {
         localStorage.setItem("name", data.name);
         localStorage.setItem("email", data.email);
         localStorage.setItem("token", data.token);
-        console.log(userContext);
-        // userContext.setUser({
-        //   name: data.name,
-        //   email: data.email,
-        //   token: data.token
-        // });
+        userContext.setUser({
+          name: data.name,
+          email: data.email,
+          token: data.token
+        });
       }
       await setIsLoading(false);
       console.log(data);

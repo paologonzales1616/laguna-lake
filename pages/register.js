@@ -23,7 +23,8 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const _register = async () => {
+  const _register = async e => {
+    e.preventDefault();
     const options = {
       headers: headers,
       method: "POST",
@@ -58,7 +59,7 @@ const Register = () => {
           <Col sm={{ size: 12 }} md={{ size: 6, offset: 3 }}>
             <div className="panel">
               <h1 className="text-center">Register</h1>
-              <Form>
+              <Form onSubmit={_register}>
                 <FormGroup>
                   <Label>Name</Label>
                   <Input
@@ -95,10 +96,10 @@ const Register = () => {
                     placeholder="Enter Password Again"
                   />
                 </FormGroup>
+                <Button type="submit" block color="primary">
+                  {isLoading ? <Spinner size="sm" color="light" /> : "Register"}
+                </Button>
               </Form>
-              <Button onClick={() => _register()} block color="primary">
-                {isLoading ? <Spinner size="sm" color="light" /> : "Register"}
-              </Button>
             </div>
           </Col>
         </Row>

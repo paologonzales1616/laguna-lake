@@ -166,8 +166,12 @@ const Navigation = () => {
                 {userContext.user.email}
               </DropdownToggle>
               <DropdownMenu right>
-                <DropdownItem>Option 1</DropdownItem>
-                <DropdownItem>Option 2</DropdownItem>
+                <Link href="/data">
+                  <DropdownItem>Database</DropdownItem>
+                </Link>
+                <Link href="/users">
+                  <DropdownItem>Users</DropdownItem>
+                </Link>
                 <DropdownItem divider />
                 <DropdownItem onClick={() => _logout()}>Logout</DropdownItem>
               </DropdownMenu>

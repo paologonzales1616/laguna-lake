@@ -221,6 +221,26 @@ def actual_timeline_by_feature(feature):
             timeline[['date', feature]].sort_values(by="date").iterrows()]
 
 
+def actual_timeline_by_feature_and_station(feature, station="All"):
+    """
+    Returns a series of data by the given feature
+    :param feature: feature (column) to show
+    :return: Dictionary of date and its data
+    """
+    if station == "All":
+        return actual_timeline_by_feature(feature)
+
+    results = []
+
+    for index, row in timeline[['date', 'station', feature]].sort_values(by="date").iterrows():
+        if int(row['station']) == int(station):
+            results.append(
+                {"date": pd.datetime.strftime(row['date'], "%m/%d/%Y"),
+                "value": row[feature]})
+
+    return results
+
+
 def initialize_all():
     """
     Will initialize every dataset and model for each feature.

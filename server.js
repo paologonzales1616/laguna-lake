@@ -1,10 +1,13 @@
 require("dotenv").config();
+const fs = require("fs");
+const path = require("path");
 const express = require("express");
 const next = require("next");
 const bodyParser = require("body-parser");
 const { PythonShell } = require("python-shell");
 const { check, validationResult } = require("express-validator");
 const { privateSign, refreshSign, newPrivate } = require("./configs/jwt");
+const dateFormat = require("dateformat");
 
 const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== "production";
@@ -135,19 +138,64 @@ app.prepare().then(() => {
   });
   server.delete("/api/users", async (req, res) => {
     User.findOneAndRemove({ email: req.body.email }, (err, del) => {
-      User.find({}, ["name", "email", "disable"], (err, doc) => {
+      User.find({ admin: false }, ["name", "email", "disable"], (err, doc) => {
         return res.json(doc);
       });
     });
   });
-  server.post("/api/data", async (req, res) => {
-    console.log(req.body);
+  server.post("/api/lake", async (req, res) => {
+    const datasets = [
+      "pH",
+      "ammonia",
+      "nitrate",
+      "inorganic_phosphate",
+      "BOD",
+      "dissolved_oxygen",
+      "fecal_coliforms",
+      "wqi"
+    ];
+    const feilds = [
+      "date",
+      "station",
+      "pH",
+      "ammonia",
+      "nitrate",
+      "inorganic_phosphate",
+      "BOD",
+      "dissolved_oxygen",
+      "fecal_coliforms",
+      "wqi"
+    ];
+    let data = req.body.payload;
+    data[0] = dateFormat(data[0], "dd/mm/yyyy");
+    fs.appendFileSync(
+      path.join(__dirname, "/datasets/") + "timeline.csv",
+      `\n${data.join(",")}`,
+      "utf8"
+    );
+    month = data[0].split("/")[1];
+    for (let index = 0; index < datasets.length; index++) {
+      let tempArray = data;
+      tempArray[0] = month;
+      const filename = datasets[index];
+      const indexOfFilename = feilds.indexOf(filename);
+      const val = tempArray[indexOfFilename];
+      tempArray.splice(indexOfFilename, 1);
+      tempArray.push(val);
+      fs.appendFileSync(
+        `${path.join(__dirname, "/datasets/")}${filename}.csv`,
+        `\n${tempArray.join(",")}`,
+        "utf8"
+      );
+    }
     return res.json({});
   });
-
   server.post("/api/:type", async (req, res) => {
     const pyshell = await new PythonShell("main.py", {
-      args: [req.params.type, ...((req.body.payload && req.body.payload) || [])]
+      args: [
+        req.params.type,
+        ...((req.body.payload && [...req.body.payload]) || [])
+      ]
     });
     await pyshell.on("message", message => {
       return res.json(JSON.parse(message));

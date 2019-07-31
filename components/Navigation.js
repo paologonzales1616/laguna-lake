@@ -22,6 +22,7 @@ const Navigation = () => {
     localStorage.removeItem("name");
     localStorage.removeItem("email");
     localStorage.removeItem("token");
+    localStorage.removeItem("admin");
   };
 
   return (
@@ -39,7 +40,7 @@ const Navigation = () => {
           </NavItem>
           <UncontrolledDropdown nav inNavbar>
             <DropdownToggle nav caret>
-              Water Quality Maps
+              Forecasting
             </DropdownToggle>
             <DropdownMenu right>
               <Link href="/forecast/pH">
@@ -91,7 +92,7 @@ const Navigation = () => {
           </UncontrolledDropdown>
           <UncontrolledDropdown nav inNavbar>
             <DropdownToggle nav caret>
-              Simulation
+              Water Quality Predictions
             </DropdownToggle>
             <DropdownMenu right>
               <Link href="/simulation/pH">
@@ -166,13 +167,19 @@ const Navigation = () => {
                 {userContext.user.email}
               </DropdownToggle>
               <DropdownMenu right>
-                <Link href="/data">
-                  <DropdownItem>Database</DropdownItem>
-                </Link>
-                <Link href="/users">
-                  <DropdownItem>Users</DropdownItem>
-                </Link>
-                <DropdownItem divider />
+                {userContext.user.admin === "true" ? (
+                  <>
+                    <Link href="/data">
+                      <DropdownItem>Database</DropdownItem>
+                    </Link>
+                    <Link href="/users">
+                      <DropdownItem>Users</DropdownItem>
+                    </Link>
+                    <DropdownItem divider />
+                  </>
+                ) : (
+                  ""
+                )}
                 <DropdownItem onClick={() => _logout()}>Logout</DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>

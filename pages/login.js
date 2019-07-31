@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import Layout from "../components/Layout";
+import { useRouter } from "next/router";
 import {
   Form,
   FormGroup,
@@ -19,6 +20,7 @@ const headers = {
 };
 
 const Login = () => {
+  const router = useRouter();
   const userContext = useContext(UserContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -50,14 +52,9 @@ const Login = () => {
         localStorage.setItem("email", data.email);
         localStorage.setItem("token", data.token);
         localStorage.setItem("admin", data.admin);
-        userContext.setUser({
-          name: data.name,
-          email: data.email,
-          token: data.token,
-          admin: data.admin
-        });
+        await setIsLoading(false);
       }
-      await setIsLoading(false);
+      router.push({ pathname: "/home" });
       console.log(data);
     } catch (error) {
       console.error(error);

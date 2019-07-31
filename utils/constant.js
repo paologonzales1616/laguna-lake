@@ -32,5 +32,6 @@ export const RIVER_FEATURES = [
   "nitrate",
   "inorganic_phosphate",
   "dissolved_oxygen",
-  "BOD"
+  "BOD",
+  "fecal_coliforms"
 ];

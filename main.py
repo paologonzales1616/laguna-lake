@@ -33,13 +33,13 @@ def legend_of_feature(feature):
     print(json.dumps(colors.legend(feature)))
 
 
-def timeline_of_feature(feature):
-    print(json.dumps(model.actual_timeline_by_feature(feature)))
+def timeline_of_feature(feature, station):
+    print(json.dumps(model.actual_timeline_by_feature_and_station(feature, station=station)))
 
 
 def update_lake_dataset(json_value):
+    print(json_value)
     new_value = json.loads(json_value)
-    print(new_value)
 
     date_str = new_value[0]
     station = new_value[1]
@@ -62,6 +62,8 @@ def update_lake_dataset(json_value):
         feature = csv.replace(".csv", "")
 
         with open("datasets/%s" % csv, 'a') as f:
+
+            data = None
 
             if feature == 'ammonia':
                 data = [date.month, station, pH,
@@ -109,7 +111,8 @@ def update_lake_dataset(json_value):
                         BOD, dissolved_oxygen,
                         fecal_coliforms, ammonia, wqi]
 
-            f.write("\n" + str(data).replace("[", "").replace("]", "").replace(" ", ""))
+            if data: 
+                f.write("\n" + str(data).replace("[", "").replace("]", "").replace(" ", ""))
 
 
 def data_of_river(feature):
@@ -128,12 +131,13 @@ if __name__ == "__main__":
         legend_of_feature(sys.argv[2])
 
     elif sys.argv[1] == 'timeline':
-        timeline_of_feature(sys.argv[2])
+        timeline_of_feature(sys.argv[2], sys.argv[3])
 
     elif sys.argv[1] == 'rivers':
         data_of_river(sys.argv[2])
 
     elif sys.argv[1] == 'lake':
+        # print(sys.argv[2])
         update_lake_dataset(sys.argv[2])
 
     sys.stdout.flush()

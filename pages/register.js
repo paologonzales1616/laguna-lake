@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Layout from "../components/Layout";
+import { useRouter } from "next/router";
 import {
   Form,
   FormGroup,
@@ -17,6 +18,7 @@ const headers = {
 };
 
 const Register = () => {
+  const router = useRouter();
   const [name, setName] = useState("");
   const [password2, setPassword2] = useState("");
   const [email, setEmail] = useState("");
@@ -46,6 +48,7 @@ const Register = () => {
       );
       const data = await response.json();
       await setIsLoading(false);
+      router.push({ pathname: "/login" });
       console.log(data);
     } catch (error) {
       console.error(error);

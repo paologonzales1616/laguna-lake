@@ -43,7 +43,7 @@ const Map = props => {
         data={geojson}
         linePaint={{
           "line-color": "black",
-          "line-width": 1
+          "line-width": 2
         }}
       />
       {mapInfo.map((data, index) => (
@@ -52,7 +52,7 @@ const Map = props => {
           type="symbol"
           layout={{
             ...TEXT_PROPS,
-            "text-field": `Station ${data.station}`
+            "text-field": `Station ${data.station}\n${data.name}`
           }}
         >
           <Feature coordinates={data.marker_coords} />

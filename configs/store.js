@@ -9,9 +9,10 @@ const store = ({ children }) => {
     const name = localStorage.getItem("name");
     const email = localStorage.getItem("email");
     const token = localStorage.getItem("token");
+    const admin = localStorage.getItem("admin");
 
     if (name && email && token) {
-      setUser({ name, email, token });
+      setUser({ name, email, token, admin });
     }
   }, []);
 

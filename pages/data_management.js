@@ -32,26 +32,27 @@ const data_management = () => {
     const options = {
       headers: headers,
       method: "POST",
-      body: JSON.stringify([
-        station,
-        date,
-        parseInt(pH),
-        parseInt(ammonia),
-        parseInt(nitrate),
-        parseInt(inorganicPhosphate),
-        parseInt(dissolvedOxygen),
-        parseInt(fecalColiforms),
-        parseInt(wqi),
-        parseInt(bod)
-      ])
+      body: JSON.stringify({
+        payload: [
+          date,
+          station,
+          parseFloat(pH),
+          parseFloat(nitrate),
+          parseFloat(inorganicPhosphate),
+          parseFloat(bod),
+          parseFloat(dissolvedOxygen),
+          parseFloat(fecalColiforms),
+          parseFloat(ammonia),
+          parseFloat(wqi)
+        ]
+      })
     };
     try {
-      parseInt();
       await setIsLoading(true);
       const response = await fetch(
         process.env.NODE_ENV === "production"
-          ? `${window.location.protocol}/${document.location.hostname}/api/data`
-          : `http://localhost:3000/api/data`,
+          ? `${window.location.protocol}/${document.location.hostname}/api/lake`
+          : `http://localhost:3000/api/lake`,
         options
       );
       const data = await response.json();
@@ -204,7 +205,7 @@ const data_management = () => {
                   </Col>
                 </Row>
                 <Button type="submit" block color="primary">
-                  {isLoading ? <Spinner size="sm" color="light" /> : "Login"}
+                  {isLoading ? <Spinner size="sm" color="light" /> : "Submit"}
                 </Button>
               </Form>
             </div>

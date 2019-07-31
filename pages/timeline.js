@@ -10,7 +10,7 @@ import {
   Spinner
 } from "reactstrap";
 import dynamic from "next/dynamic";
-import { FEATURES } from "../utils/constant";
+import { FEATURES, STATIONS } from "../utils/constant";
 import { FEATURE_TO_TEXT } from "../utils/actions";
 import fetch from "isomorphic-unfetch";
 import Doc from "../utils/docService";
@@ -19,13 +19,18 @@ import PdfContainer from "../utils/pdfContainer";
 const TimelineChart = dynamic(() => import("../components/TimelineChart"), {
   ssr: false
 });
-
+const stations = ["All", ...STATIONS];
 const Timeline = () => {
+  const [station, setStation] = useState("All");
+  const [feature, setFeature] = useState("pH");
   const [timeline, setTimeline] = useState([]);
-  const [label, setLabel] = useState("pH");
   const [isLoading, setIsLoading] = useState(false);
   const createPdf = html => Doc.createPdf(html);
+
   const simulate = async val => {
+      await setFeature(val.feature);
+      await setStation(val.station);
+
     const headers = {
       Accept: "application/json",
       "Content-Type": "application/json"
@@ -34,11 +39,10 @@ const Timeline = () => {
       headers: headers,
       method: "POST",
       body: JSON.stringify({
-        payload: [val]
+        payload: [val.feature, val.station]
       })
     };
     try {
-      await setLabel(val);
       await setTimeline([]);
       await setIsLoading(true);
       const response = await fetch(
@@ -52,13 +56,14 @@ const Timeline = () => {
       const data = await response.json();
       await setTimeline(data);
       await setIsLoading(false);
+      console.log(data);
     } catch (error) {
       console.error(error);
     }
   };
 
   useEffect(() => {
-    simulate(label);
+    simulate({ feature: "pH", station : "All"});
   }, []);
 
   return (
@@ -77,10 +82,10 @@ const Timeline = () => {
                   <NavItem key={index}>
                     <NavLink
                       href="#"
-                      onClick={() => simulate(data)}
-                      active={data === label}
+                      onClick={() => simulate({ feature: data, station })}
+                      active={data === feature}
                     >
-                      {isLoading && data === label ? (
+                      {isLoading && data === feature ? (
                         <Spinner size="sm" color="light" />
                       ) : (
                         FEATURE_TO_TEXT(data)
@@ -92,8 +97,29 @@ const Timeline = () => {
             </Col>
           </Row>
           <Row>
+            <Col className="pb-3">
+              <Nav justified={true} pills>
+                {stations.map((data, index) => (
+                  <NavItem key={index}>
+                    <NavLink
+                      onClick={() => simulate({ station: data, feature })}
+                      href="#"
+                      active={data === station}
+                    >
+                      {isLoading && data === station ? (
+                        <Spinner size="sm" color="light" />
+                      ) : (
+                        <>{data[0] ? "All" : `Station ${data}`}</>
+                      )}
+                    </NavLink>
+                  </NavItem>
+                ))}
+              </Nav>
+            </Col>
+          </Row>
+          <Row>
             <Col>
-              <TimelineChart label={FEATURE_TO_TEXT(label)} data={timeline} />
+              <TimelineChart label={FEATURE_TO_TEXT(feature)} data={timeline} />
             </Col>
           </Row>
         </Container>

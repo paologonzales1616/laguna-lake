@@ -21,9 +21,7 @@ const Legend = props => {
     try {
       const response = await fetch(
         process.env.NODE_ENV === "production"
-          ? `${window.location.protocol}//${
-              document.location.hostname
-            }/api/legend`
+          ? `${process.env.BASE_URL}/api/legend`
           : `http://localhost:3000/api/legend`,
         optionsLegend
       );

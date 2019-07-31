@@ -46,9 +46,7 @@ const Rivers = () => {
       await setIsLoading(true);
       const response = await fetch(
         process.env.NODE_ENV === "production"
-          ? `${window.location.protocol}/${
-              document.location.hostname
-            }/api/rivers`
+          ? `${process.env.BASE_URL}/api/rivers`
           : "http://localhost:3000/api/rivers",
         options
       );

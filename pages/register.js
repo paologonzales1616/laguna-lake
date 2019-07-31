@@ -40,9 +40,7 @@ const Register = () => {
       await setIsLoading(true);
       const response = await fetch(
         process.env.NODE_ENV === "production"
-          ? `${window.location.protocol}/${
-              document.location.hostname
-            }/api/login`
+          ? `${process.env.BASE_URL}/api/login`
           : `http://localhost:3000/api/register`,
         options
       );

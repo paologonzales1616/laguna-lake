@@ -9,11 +9,10 @@ const { check, validationResult } = require("express-validator");
 const { privateSign, refreshSign, newPrivate } = require("./configs/jwt");
 const dateFormat = require("dateformat");
 
-const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
 const handle = app.getRequestHandler();
-
+const port = parseInt(process.env.PORT, 10) || 3000;
 const User = require("./models/user");
 
 /***************Mongodb configuratrion********************/

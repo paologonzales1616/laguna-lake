@@ -53,13 +53,12 @@ const Index = () => {
       await setIsLoading(false);
       const response = await fetch(
         process.env.NODE_ENV === "production"
-          ? `${window.location.protocol}/${
-              document.location.hostname
-            }/api/forecast`
+          ? `${process.env.BASE_URL}/api/forecast`
           : `http://localhost:3000/api/forecast`,
         options
       );
       const data = await response.json();
+      console.log(data)
       await setstationCondition(
         data.sort((a, b) => {
           return a.station - b.station;

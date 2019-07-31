@@ -14,9 +14,7 @@ const user_management = () => {
     try {
       const response = await fetch(
         process.env.NODE_ENV === "production"
-          ? `${window.location.protocol}/${
-              document.location.hostname
-            }/api/users`
+          ? `${process.env.BASE_URL}/api/users`
           : `http://localhost:3000/api/users`,
         options
       );
@@ -40,9 +38,7 @@ const user_management = () => {
     try {
       const response = await fetch(
         process.env.NODE_ENV === "production"
-          ? `${window.location.protocol}/${
-              document.location.hostname
-            }/api/users`
+          ? `${process.env.BASE_URL}/api/users`
           : `http://localhost:3000/api/users`,
         options
       );

@@ -51,7 +51,7 @@ const data_management = () => {
       await setIsLoading(true);
       const response = await fetch(
         process.env.NODE_ENV === "production"
-          ? `${window.location.protocol}/${document.location.hostname}/api/lake`
+          ? `${process.env.BASE_URL}/api/lake`
           : `http://localhost:3000/api/lake`,
         options
       );

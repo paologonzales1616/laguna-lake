@@ -47,9 +47,7 @@ const Timeline = () => {
       await setIsLoading(true);
       const response = await fetch(
         process.env.NODE_ENV === "production"
-          ? `${window.location.protocol}/${
-              document.location.hostname
-            }/api/timeline`
+          ? `${process.env.BASE_URL}/api/timeline`
           : "http://localhost:3000/api/timeline",
         options
       );

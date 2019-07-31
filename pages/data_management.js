@@ -49,12 +49,7 @@ const data_management = () => {
     };
     try {
       await setIsLoading(true);
-      const response = await fetch(
-        process.env.NODE_ENV === "production"
-          ? `${process.env.BASE_URL}/api/lake`
-          : `http://localhost:3000/api/lake`,
-        options
-      );
+      const response = await fetch("/api/lake", options);
       const data = await response.json();
       alert("Updated successfully");
       await setIsLoading(false);

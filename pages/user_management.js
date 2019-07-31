@@ -12,12 +12,7 @@ const user_management = () => {
       headers: headers
     };
     try {
-      const response = await fetch(
-        process.env.NODE_ENV === "production"
-          ? `${process.env.BASE_URL}/api/users`
-          : `http://localhost:3000/api/users`,
-        options
-      );
+      const response = await fetch("/api/users", options);
       const data = await response.json();
       if (data) {
         setUsers(data);
@@ -36,16 +31,11 @@ const user_management = () => {
       })
     };
     try {
-      const response = await fetch(
-        process.env.NODE_ENV === "production"
-          ? `${process.env.BASE_URL}/api/users`
-          : `http://localhost:3000/api/users`,
-        options
-      );
+      const response = await fetch("/api/users", options);
       const data = await response.json();
       if (data[0]) {
         setUsers(data);
-      }else{
+      } else {
         setUsers([]);
       }
     } catch (error) {

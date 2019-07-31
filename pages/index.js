@@ -51,14 +51,9 @@ const Index = () => {
     };
     try {
       await setIsLoading(false);
-      const response = await fetch(
-        process.env.NODE_ENV === "production"
-          ? `${process.env.BASE_URL}/api/forecast`
-          : `http://localhost:3000/api/forecast`,
-        options
-      );
+      const response = await fetch("/api/forecast".options);
       const data = await response.json();
-      console.log(data)
+      console.log(data);
       await setstationCondition(
         data.sort((a, b) => {
           return a.station - b.station;
@@ -172,9 +167,9 @@ const Index = () => {
         </div>
         <div className="home-overview">
           <div>
-            Using <b>Deep Learning Algorithm</b>, the system has the capability to
-            learn the water quality from the dataset using the training set and
-            simulate a particular scenario based on the water quality
+            Using <b>Deep Learning Algorithm</b>, the system has the capability
+            to learn the water quality from the dataset using the training set
+            and simulate a particular scenario based on the water quality
             parameters.
           </div>
         </div>

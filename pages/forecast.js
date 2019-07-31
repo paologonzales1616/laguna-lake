@@ -41,12 +41,7 @@ const Forecast = props => {
     };
     try {
       await setIsLoading(false);
-      const response = await fetch(
-        process.env.NODE_ENV === "production"
-          ? `${process.env.BASE_URL}/api/forecast`
-          : `http://localhost:3000/api/forecast`,
-        options
-      );
+      const response = await fetch("/api/forecast", options);
       const data = await response.json();
       await setstationCondition(
         data.sort((a, b) => {

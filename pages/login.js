@@ -38,12 +38,7 @@ const Login = () => {
     };
     try {
       await setIsLoading(true);
-      const response = await fetch(
-        process.env.NODE_ENV === "production"
-          ? `${process.env.BASE_URL}/api/login`
-          : `http://localhost:3000/api/login`,
-        options
-      );
+      const response = await fetch("/api/login", options);
       const data = await response.json();
       if (data.name && data.email && data.token) {
         localStorage.setItem("name", data.name);

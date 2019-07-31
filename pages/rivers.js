@@ -44,12 +44,7 @@ const Rivers = () => {
 
     try {
       await setIsLoading(true);
-      const response = await fetch(
-        process.env.NODE_ENV === "production"
-          ? `${process.env.BASE_URL}/api/rivers`
-          : "http://localhost:3000/api/rivers",
-        options
-      );
+      const response = await fetch("/api/rivers", options);
       const data = await response.json();
       await setNames(data.names);
       await setValue(data.data);

@@ -84,9 +84,7 @@ const Simulation = props => {
     try {
       await setIsLoading(true);
       const response = await fetch(
-        process.env.NODE_ENV === "production"
-          ? `${process.env.BASE_URL}/api/actual`
-          : `http://localhost:3000/api/actual`,
+        "/api/actual",
         options
       );
       const data = await response.json();
@@ -106,43 +104,42 @@ const Simulation = props => {
   return (
     <Layout>
       <PdfContainer createPdf={createPdf}>
-
-      <Container className="p-5">
-        <Row>
-          <Col className="text-center pb-3">
-            <h2>{FEATURE_TO_TEXT(props.feature)}</h2>
-          </Col>
-        </Row>
-        <Row>
-          <Col className="pb-3">
-            <Nav justified={true} pills>
-              {STATIONS.map((data, index) => (
-                <NavItem key={index}>
-                  <NavLink
-                    onClick={() => {
-                      setStation(data);
-                      simulate();
-                    }}
-                    href="#"
-                    active={data === station}
-                  >
-                    {isLoading && data === station ? (
-                      <Spinner size="sm" color="light" />
-                    ) : (
-                      `Station ${data}`
-                    )}
-                  </NavLink>
-                </NavItem>
-              ))}
-            </Nav>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <Line data={data} />
-          </Col>
-        </Row>
-      </Container>
+        <Container className="p-5">
+          <Row>
+            <Col className="text-center pb-3">
+              <h2>{FEATURE_TO_TEXT(props.feature)}</h2>
+            </Col>
+          </Row>
+          <Row>
+            <Col className="pb-3">
+              <Nav justified={true} pills>
+                {STATIONS.map((data, index) => (
+                  <NavItem key={index}>
+                    <NavLink
+                      onClick={() => {
+                        setStation(data);
+                        simulate();
+                      }}
+                      href="#"
+                      active={data === station}
+                    >
+                      {isLoading && data === station ? (
+                        <Spinner size="sm" color="light" />
+                      ) : (
+                        `Station ${data}`
+                      )}
+                    </NavLink>
+                  </NavItem>
+                ))}
+              </Nav>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <Line data={data} />
+            </Col>
+          </Row>
+        </Container>
       </PdfContainer>
     </Layout>
   );

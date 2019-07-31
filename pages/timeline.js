@@ -28,8 +28,8 @@ const Timeline = () => {
   const createPdf = html => Doc.createPdf(html);
 
   const simulate = async val => {
-      await setFeature(val.feature);
-      await setStation(val.station);
+    await setFeature(val.feature);
+    await setStation(val.station);
 
     const headers = {
       Accept: "application/json",
@@ -45,12 +45,7 @@ const Timeline = () => {
     try {
       await setTimeline([]);
       await setIsLoading(true);
-      const response = await fetch(
-        process.env.NODE_ENV === "production"
-          ? `${process.env.BASE_URL}/api/timeline`
-          : "http://localhost:3000/api/timeline",
-        options
-      );
+      const response = await fetch("/api/timeline", options);
       const data = await response.json();
       await setTimeline(data);
       await setIsLoading(false);
@@ -61,7 +56,7 @@ const Timeline = () => {
   };
 
   useEffect(() => {
-    simulate({ feature: "pH", station : "All"});
+    simulate({ feature: "pH", station: "All" });
   }, []);
 
   return (

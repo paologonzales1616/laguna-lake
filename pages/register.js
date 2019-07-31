@@ -38,12 +38,7 @@ const Register = () => {
     };
     try {
       await setIsLoading(true);
-      const response = await fetch(
-        process.env.NODE_ENV === "production"
-          ? `${process.env.BASE_URL}/api/login`
-          : `http://localhost:3000/api/register`,
-        options
-      );
+      const response = await fetch("/api/login", options);
       const data = await response.json();
       await setIsLoading(false);
       router.push({ pathname: "/login" });

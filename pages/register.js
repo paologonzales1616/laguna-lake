@@ -38,7 +38,7 @@ const Register = () => {
     };
     try {
       await setIsLoading(true);
-      const response = await fetch("/api/login", options);
+      const response = await fetch("/api/register", options);
       const data = await response.json();
       await setIsLoading(false);
       router.push({ pathname: "/login" });

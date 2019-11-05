@@ -22,7 +22,7 @@
     "jsonwebtoken": "^8.5.1",
     "mapbox-gl": "^1.1.0",
     "moment": "^2.24.0",
-    "mongoose": "^5.6.7",
+    "mongoose": "^5.7.5",
     "next": "8.1.0",
     "python-shell": "^1.0.7",
     "react": "16.8.6",
